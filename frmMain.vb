@@ -2,15 +2,16 @@ Option Strict Off
 Option Explicit On
 Friend Class frmMain
 	Inherits System.Windows.Forms.Form
-	
+
 	'UPGRADE_WARNING: Event chkEquipes.CheckStateChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
+
 	Private Sub chkEquipes_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkEquipes.CheckStateChanged
-		
+
 		optEquipes(0).Enabled = (chkEquipes.CheckState = 1)
 		optEquipes(1).Enabled = (chkEquipes.CheckState = 1)
-		
+
 	End Sub
-	
+
 	Private Sub Command1_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command1.Click
 		Dim rsTeams As ADODB.Recordset
 		Dim I As Short
@@ -31,7 +32,7 @@ Friend Class frmMain
 		If chkHoraire.CheckState = 1 Then
 			lblAction.Text = "Création de la page : Calendrier"
 			System.Windows.Forms.Application.DoEvents()
-			Call subOutputCalendrier(-1, "Calendrier séries " & YEAR_Renamed, strPath & "\SiteWebTemp\calendrier.htm")
+			Call subOutputCalendrier(-1, "Calendrier " & YEAR_Renamed, strPath & "\SiteWebTemp\calendrier.htm")
 		End If
 		
 		If chkClassement.CheckState = 1 Then

@@ -7,7 +7,7 @@ Module ModDatabase
 		gcConn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & strPath & "\SaisonEnCours.mdb;" & "Persist Security Info=False"
 		gcConn.Open()
 	End Sub
-	
+
 	Public Function rsGetCalendrier(ByVal iTeamNo As Short) As ADODB.Recordset
 		Dim strSQL As String
 		Dim rs As ADODB.Recordset
