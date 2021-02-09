@@ -285,7 +285,7 @@ Module modOutput
 	Function funGetCalendrier(ByVal iTeamNo As Short) As String
 		Dim strTeamBPts As Object
 		Dim strTeamAPts As Object
-		Dim rsGames As ADODB.Recordset
+		Dim rsGames As OleDb.OleDbDataReader
 		Dim rsPlayersTeamAPts As ADODB.Recordset
 		Dim rsPlayersTeamBPts As ADODB.Recordset
 		Dim ColWidth(10) As Short
@@ -327,147 +327,145 @@ Module modOutput
 		S = S & "<TD WIDTH=" & Str(ColWidth(10)) & ">" & "<FONT FACE=VERDANA COLOR = white SIZE=2><B>Questionnaire</TD>"
 		S = S & "</TR></TABLE>"
 		S = S & ""
-		
-		rsGames.MoveFirst()
-		While Not rsGames.EOF
+
+		While rsGames.Read()
+
+
 			System.Windows.Forms.Application.DoEvents()
 			strLine = "<TABLE NOWRAP CELLPADDING=1 CELLSPACING=0><TR BGCOLOR = white>"
 			'colonne 1 - symbole +
 			'UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
-			If IsDbNull(rsGames.Fields(4).Value) Then
+			If IsDBNull(rsGames(4).ToString) Then
 				'la partie n'a pas encore eu lieu, ne pas mettre le symbole +
 				strLine = strLine & "<TD WIDTH=" & Str(ColWidth(1)) & " ALIGN=center></TD>"
 			Else
 				'la partie a eu lieu, mettre le symbole +
-				strLine = strLine & "<TD WIDTH=" & Str(ColWidth(1)) & " ALIGN=center><img src=""" & "plus.gif""" & " id=partie" & Trim(Str(rsGames.Fields(0).Value)) & " style=""" & "cursor:hand""" & " class=Outline></TD>"
+				strLine = strLine & "<TD WIDTH=" & Str(ColWidth(1)) & " ALIGN=center><img src=""" & "plus.gif""" & " id=partie" & Trim(Str(rsGames(0).ToString)) & " style=""" & "cursor:hand""" & " class=Outline></TD>"
 			End If
 			'colonne 2 - numéro de la partie
-			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(2)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & Trim(Str(rsGames.Fields(0).Value)) & "</TD>"
+			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(2)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & Trim(Str(rsGames(0).ToString)) & "</TD>"
 			'colonne 3 - date
-			strDate = funFormatDate(rsGames.Fields(1).Value)
-			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(3)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & strDate & "</TD>"
-			'colonne 4 - Lieu
-			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(4)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & Trim(rsGames.Fields(10).Value) & "</TD>"
-			'      If rsGames.Fields(10) = "JT" Then
-			'         strLine = strLine + "<TD WIDTH=" & Str(ColWidth(4)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>JT</TD>"
-			'      Else
-			'         strLine = strLine + "<TD WIDTH=" & Str(ColWidth(4)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>RHC</TD>"
-			'      End If
-			'colonne 5 - Nom equipe A
-			'UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
-			If IsDbNull(rsGames.Fields(2).Value) Then
-				strTeamName = ""
-				strHREF = ""
-			Else
-				strTeamName = rsGames.Fields(2).Value
-				strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsGames.Fields(3).Value)) & ".htm" & """  > " & strTeamName & "</A>"
-			End If
-			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(5)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & strHREF & "</TD>"
-			'colonne 6 - Pts equipe A
-			'UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
-			If IsDbNull(rsGames.Fields(4).Value) Then
-				'UPGRADE_WARNING: Couldn't resolve default property of object strTeamAPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				strTeamAPts = ""
-			Else
-				'UPGRADE_WARNING: Couldn't resolve default property of object strTeamAPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				strTeamAPts = rsGames.Fields(4).Value
-			End If
-			'UPGRADE_WARNING: Couldn't resolve default property of object strTeamAPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(6)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2><B>" & strTeamAPts & "</TD>"
-			'colonne 7 - Nom equipe B
-			'UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
-			If IsDbNull(rsGames.Fields(5).Value) Then
-				strTeamName = ""
-			Else
-				strTeamName = rsGames.Fields(5).Value
-				strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsGames.Fields(6).Value)) & ".htm" & """  > " & strTeamName & "</A>"
-			End If
-			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(7)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & strHREF & "</TD>"
-			'colonne 8 - Pts equipe B
-			'UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
-			If IsDbNull(rsGames.Fields(7).Value) Then
-				'UPGRADE_WARNING: Couldn't resolve default property of object strTeamBPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				strTeamBPts = ""
-			Else
-				'UPGRADE_WARNING: Couldn't resolve default property of object strTeamBPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-				strTeamBPts = rsGames.Fields(7).Value
-			End If
-			'UPGRADE_WARNING: Couldn't resolve default property of object strTeamBPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(8)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2><B>" & strTeamBPts & "</TD>"
-			'colonne 9 - Animateur
-			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(9)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & Trim(rsGames.Fields(8).Value) & "</TD>"
-			'colonne 10 - equipe questionnaire
-			'UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
-			If IsDbNull(rsGames.Fields(9).Value) Then
-				strTeamName = ""
-			Else
-				strTeamName = rsGames.Fields(9).Value
-				strHREF = "<A HREF = '" & F_DE_MATCH & Trim(Str(rsGames.Fields(0).Value)) & ".htm'><img src='sheet.gif' STYLE='cursor: hand' BORDER=0></A>"
-			End If
-			'si la partie n'a pas eu lieu, ne pas montrer l'icone "sheet"
-			'UPGRADE_WARNING: Couldn't resolve default property of object strTeamAPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If strTeamAPts = "" Then
-				strHREF = ""
-			End If
-			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(10)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & strHREF & "&nbsp" & strTeamName & "</TD>"
-			strLine = strLine & "</TR></TABLE>"
-			S = S & strLine
-			
-			'section detail de la partie
-			'UPGRADE_WARNING: Couldn't resolve default property of object strTeamBPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			'UPGRADE_WARNING: Couldn't resolve default property of object strTeamAPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			If (strTeamAPts <> "") And (strTeamBPts <> "") Then
-				'la partie a eu lieu, afficher le détail
-				'aller chercher le pointage de chaque joueurs de l'équipe A
-				rsPlayersTeamAPts = rsGetPlayerPtsForAGame(rsGames.Fields(0).Value, rsGames.Fields(3).Value)
-				rsPlayersTeamAPts.MoveFirst()
-				'aller chercher le pointage de chaque joueurs de l'équipe B
-				rsPlayersTeamBPts = rsGetPlayerPtsForAGame(rsGames.Fields(0).Value, rsGames.Fields(6).Value)
-				rsPlayersTeamBPts.MoveFirst()
-				strLine = "<div id=partie" & rsGames.Fields(0).Value & "d style=""" & "display:None" & """ > "
-				strLine = strLine & "<TABLE NOWRAP CELLPADDING=1 CELLSPACING=0>"
-				strLine = strLine & "<TR BGCOLOR = darkgray>"
-				'il y a 5 joueurs possible, 4 joueurs plus l'équipe
-				For I = 1 To 5
-					strLine = strLine & "<TR BGCOLOR = whitesmoke>"
-					strLine = strLine & "<TD WIDTH=" & Str(ColWidth(1)) & "></TD>"
-					strLine = strLine & "<TD WIDTH=" & Str(ColWidth(2)) & "></TD>"
-					strLine = strLine & "<TD WIDTH=" & Str(ColWidth(3)) & "></TD>"
-					strLine = strLine & "<TD WIDTH=" & Str(ColWidth(4)) & "></TD>"
-					If Not rsPlayersTeamAPts.EOF Then
-						strLine = strLine & "<TD WIDTH=" & Str(ColWidth(5)) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & rsPlayersTeamAPts.Fields(1).Value & "</TD>"
-						strLine = strLine & "<TD WIDTH=" & Str(30) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & rsPlayersTeamAPts.Fields(2).Value & "</TD>"
-						strPlayerPercent = Str(System.Math.Round(rsPlayersTeamAPts.Fields(2).Value / rsGames.Fields(11).Value * 100, 1))
-						strLine = strLine & "<TD WIDTH=" & Str(40) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & strPlayerPercent & "%</TD>"
-						rsPlayersTeamAPts.MoveNext()
-					Else
-						'le joueur n'a pas fait de pts, mettre des cellules vides
-						strLine = strLine & "<TD BGCOLOR = white COLSPAN = 3></TD>"
-					End If
-					If Not rsPlayersTeamBPts.EOF Then
-						strLine = strLine & "<TD WIDTH=" & Str(ColWidth(7)) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & rsPlayersTeamBPts.Fields(1).Value & "</TD>"
-						strLine = strLine & "<TD WIDTH=" & Str(30) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & rsPlayersTeamBPts.Fields(2).Value & "</TD>"
-						strPlayerPercent = Str(System.Math.Round(rsPlayersTeamBPts.Fields(2).Value / rsGames.Fields(11).Value * 100, 1))
-						strLine = strLine & "<TD WIDTH=" & Str(40) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & strPlayerPercent & "%</TD>"
-						rsPlayersTeamBPts.MoveNext()
-					Else
-						'le joueur n'a pas fait de pts, mettre des cellules vides
-						strLine = strLine & "<TD BGCOLOR = white COLSPAN = 3></TD>"
-					End If
-					strLine = strLine & "<TD WIDTH=" & Str(ColWidth(9)) & "></TD>"
-					strLine = strLine & "<TD WIDTH=" & Str(ColWidth(10)) & "></TD>"
-					strLine = strLine & "</TR>"
-				Next 
-				strLine = strLine & "</TABLE></DIV>"
-				S = S & strLine
-				rsPlayersTeamAPts.Close()
-				rsPlayersTeamBPts.Close()
-			End If
-			rsGames.MoveNext()
+			'strDate = funFormatDate(rsGames.Fields(1).Value)
+			'strLine = strLine & "<TD WIDTH=" & Str(ColWidth(3)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & strDate & "</TD>"
+			''colonne 4 - Lieu
+			'strLine = strLine & "<TD WIDTH=" & Str(ColWidth(4)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & Trim(rsGames.Fields(10).Value) & "</TD>"
+			''      If rsGames.Fields(10) = "JT" Then
+			''         strLine = strLine + "<TD WIDTH=" & Str(ColWidth(4)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>JT</TD>"
+			''      Else
+			''         strLine = strLine + "<TD WIDTH=" & Str(ColWidth(4)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>RHC</TD>"
+			''      End If
+			''colonne 5 - Nom equipe A
+			''UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
+			'If IsDbNull(rsGames.Fields(2).Value) Then
+			'	strTeamName = ""
+			'	strHREF = ""
+			'Else
+			'	strTeamName = rsGames.Fields(2).Value
+			'	strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsGames.Fields(3).Value)) & ".htm" & """  > " & strTeamName & "</A>"
+			'End If
+			'strLine = strLine & "<TD WIDTH=" & Str(ColWidth(5)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & strHREF & "</TD>"
+			''colonne 6 - Pts equipe A
+			''UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
+			'If IsDbNull(rsGames.Fields(4).Value) Then
+			'	'UPGRADE_WARNING: Couldn't resolve default property of object strTeamAPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+			'	strTeamAPts = ""
+			'Else
+			'	'UPGRADE_WARNING: Couldn't resolve default property of object strTeamAPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+			'	strTeamAPts = rsGames.Fields(4).Value
+			'End If
+			''UPGRADE_WARNING: Couldn't resolve default property of object strTeamAPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+			'strLine = strLine & "<TD WIDTH=" & Str(ColWidth(6)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2><B>" & strTeamAPts & "</TD>"
+			''colonne 7 - Nom equipe B
+			''UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
+			'If IsDbNull(rsGames.Fields(5).Value) Then
+			'	strTeamName = ""
+			'Else
+			'	strTeamName = rsGames.Fields(5).Value
+			'	strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsGames.Fields(6).Value)) & ".htm" & """  > " & strTeamName & "</A>"
+			'End If
+			'strLine = strLine & "<TD WIDTH=" & Str(ColWidth(7)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & strHREF & "</TD>"
+			''colonne 8 - Pts equipe B
+			''UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
+			'If IsDbNull(rsGames.Fields(7).Value) Then
+			'	'UPGRADE_WARNING: Couldn't resolve default property of object strTeamBPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+			'	strTeamBPts = ""
+			'Else
+			'	'UPGRADE_WARNING: Couldn't resolve default property of object strTeamBPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+			'	strTeamBPts = rsGames.Fields(7).Value
+			'End If
+			''UPGRADE_WARNING: Couldn't resolve default property of object strTeamBPts. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+			'strLine = strLine & "<TD WIDTH=" & Str(ColWidth(8)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2><B>" & strTeamBPts & "</TD>"
+			''colonne 9 - Animateur
+			'strLine = strLine & "<TD WIDTH=" & Str(ColWidth(9)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & Trim(rsGames.Fields(8).Value) & "</TD>"
+			''colonne 10 - equipe questionnaire
+			''UPGRADE_WARNING: Use of Null/IsNull() detected. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"'
+			'If IsDbNull(rsGames.Fields(9).Value) Then
+			'	strTeamName = ""
+			'Else
+			'	strTeamName = rsGames.Fields(9).Value
+			'	strHREF = "<A HREF = '" & F_DE_MATCH & Trim(Str(rsGames.Fields(0).Value)) & ".htm'><img src='sheet.gif' STYLE='cursor: hand' BORDER=0></A>"
+			'End If
+			''si la partie n'a pas eu lieu, ne pas montrer l'icone "sheet"
+			'If strTeamAPts <= 0 Then
+			'	strHREF = ""
+			'End If
+			'strLine = strLine & "<TD WIDTH=" & Str(ColWidth(10)) & ">" & "<FONT FACE=VERDANA COLOR = black SIZE=2>" & strHREF & "&nbsp" & strTeamName & "</TD>"
+			'strLine = strLine & "</TR></TABLE>"
+			'S = S & strLine
+
+			''section detail de la partie
+			'If (strTeamAPts > 0) And (strTeamBPts > 0) Then
+			'	'la partie a eu lieu, afficher le détail
+			'	'aller chercher le pointage de chaque joueurs de l'équipe A
+			'	rsPlayersTeamAPts = rsGetPlayerPtsForAGame(rsGames.Fields(0).Value, rsGames.Fields(3).Value)
+			'	rsPlayersTeamAPts.MoveFirst()
+			'	'aller chercher le pointage de chaque joueurs de l'équipe B
+			'	rsPlayersTeamBPts = rsGetPlayerPtsForAGame(rsGames.Fields(0).Value, rsGames.Fields(6).Value)
+			'	rsPlayersTeamBPts.MoveFirst()
+			'	strLine = "<div id=partie" & rsGames.Fields(0).Value & "d style=""" & "display:None" & """ > "
+			'	strLine = strLine & "<TABLE NOWRAP CELLPADDING=1 CELLSPACING=0>"
+			'	strLine = strLine & "<TR BGCOLOR = darkgray>"
+			'	'il y a 5 joueurs possible, 4 joueurs plus l'équipe
+			'	For I = 1 To 5
+			'		strLine = strLine & "<TR BGCOLOR = whitesmoke>"
+			'		strLine = strLine & "<TD WIDTH=" & Str(ColWidth(1)) & "></TD>"
+			'		strLine = strLine & "<TD WIDTH=" & Str(ColWidth(2)) & "></TD>"
+			'		strLine = strLine & "<TD WIDTH=" & Str(ColWidth(3)) & "></TD>"
+			'		strLine = strLine & "<TD WIDTH=" & Str(ColWidth(4)) & "></TD>"
+			'		If Not rsPlayersTeamAPts.EOF Then
+			'			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(5)) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & rsPlayersTeamAPts.Fields(1).Value & "</TD>"
+			'			strLine = strLine & "<TD WIDTH=" & Str(30) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & rsPlayersTeamAPts.Fields(2).Value & "</TD>"
+			'			strPlayerPercent = Str(System.Math.Round(rsPlayersTeamAPts.Fields(2).Value / rsGames.Fields(11).Value * 100, 1))
+			'			strLine = strLine & "<TD WIDTH=" & Str(40) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & strPlayerPercent & "%</TD>"
+			'			rsPlayersTeamAPts.MoveNext()
+			'		Else
+			'			'le joueur n'a pas fait de pts, mettre des cellules vides
+			'			strLine = strLine & "<TD BGCOLOR = white COLSPAN = 3></TD>"
+			'		End If
+			'		If Not rsPlayersTeamBPts.EOF Then
+			'			strLine = strLine & "<TD WIDTH=" & Str(ColWidth(7)) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & rsPlayersTeamBPts.Fields(1).Value & "</TD>"
+			'			strLine = strLine & "<TD WIDTH=" & Str(30) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & rsPlayersTeamBPts.Fields(2).Value & "</TD>"
+			'			strPlayerPercent = Str(System.Math.Round(rsPlayersTeamBPts.Fields(2).Value / rsGames.Fields(11).Value * 100, 1))
+			'			strLine = strLine & "<TD WIDTH=" & Str(40) & " BGCOLOR = white><FONT FACE=VERDANA COLOR = black SIZE=1>" & strPlayerPercent & "%</TD>"
+			'			rsPlayersTeamBPts.MoveNext()
+			'		Else
+			'			'le joueur n'a pas fait de pts, mettre des cellules vides
+			'			strLine = strLine & "<TD BGCOLOR = white COLSPAN = 3></TD>"
+			'		End If
+			'		strLine = strLine & "<TD WIDTH=" & Str(ColWidth(9)) & "></TD>"
+			'		strLine = strLine & "<TD WIDTH=" & Str(ColWidth(10)) & "></TD>"
+			'		strLine = strLine & "</TR>"
+			'	Next
+			'	strLine = strLine & "</TABLE></DIV>"
+			'	S = S & strLine
+			'	rsPlayersTeamAPts.Close()
+			'	rsPlayersTeamBPts.Close()
+			'End If
+			'rsGames.MoveNext()
 		End While
 		
 		funGetCalendrier = S
-		
+		rsGames.Close()
 	End Function
 	
 	Sub subOutputEquipe(ByVal iTeamNo As Short, ByRef strTitle As String, ByRef strFileName As String)

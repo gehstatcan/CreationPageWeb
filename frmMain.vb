@@ -3,14 +3,12 @@ Option Explicit On
 Friend Class frmMain
 	Inherits System.Windows.Forms.Form
 
-	'UPGRADE_WARNING: Event chkEquipes.CheckStateChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
+	'Private Sub chkEquipes_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkEquipes.CheckStateChanged
 
-	Private Sub chkEquipes_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkEquipes.CheckStateChanged
+	'	optEquipes(0).Enabled = (chkEquipes.CheckState = 1)
+	'	optEquipes(1).Enabled = (chkEquipes.CheckState = 1)
 
-		optEquipes(0).Enabled = (chkEquipes.CheckState = 1)
-		optEquipes(1).Enabled = (chkEquipes.CheckState = 1)
-
-	End Sub
+	'End Sub
 
 	Private Sub Command1_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command1.Click
 		Dim rsTeams As ADODB.Recordset
@@ -42,7 +40,7 @@ Friend Class frmMain
 		End If
 		
 		If chkEquipes.CheckState = 1 Then
-			If optEquipes(0).Checked Then
+			If opt2Équipe.Checked Then 'Une équipe
 				rsTeams = rsGetTeams(False)
 				rsTeams.MoveFirst()
 				lblAction.Text = "Création de la page d'équipe : " & rsTeams.Fields(1).Value
@@ -51,7 +49,7 @@ Friend Class frmMain
 				lblAction.Text = "Création de la page d'équipe : " & rsTeams.Fields(3).Value
 				System.Windows.Forms.Application.DoEvents()
 				Call subOutputEquipe(rsTeams.Fields(2).Value, rsTeams.Fields(3).Value, strPath & "\SiteWebTemp\equipe_" & Trim(Str(rsTeams.Fields(2).Value)) & ".htm")
-			Else
+			Else 'Toutes les équipes
 				rsTeams = rsGetTeams(True)
 				rsTeams.MoveFirst()
 				While Not rsTeams.EOF
@@ -80,7 +78,11 @@ Friend Class frmMain
 		chkClassement.CheckState = System.Windows.Forms.CheckState.Checked
 		chkCompteurs.CheckState = System.Windows.Forms.CheckState.Checked
 		chkEquipes.CheckState = System.Windows.Forms.CheckState.Checked
-		optEquipes(1).Checked = True
-		
+		optToutesLesÉquipes.Checked = True
+
+	End Sub
+
+	Private Sub _optEquipes_0_CheckedChanged(sender As Object, e As EventArgs)
+
 	End Sub
 End Class
