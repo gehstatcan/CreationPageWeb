@@ -16,9 +16,6 @@ Module ModDatabase
         strSQL = "SELECT * FROM qry_intranet_calendrier "
         Dim command As New OleDbCommand(strSQL, gcConn)
 
-
-
-
         If iTeamNo > -1 Then
             strSQL = strSQL & "WHERE tbl…quipes.No…quipe = " & Str(iTeamNo) & " OR tbl…quipes_1.No…quipe = " & Str(iTeamNo) & " "
         End If
@@ -38,27 +35,40 @@ Module ModDatabase
 
     End Function
 
-    Public Function rsGetTeamPtsPerGame(ByRef iGameNo As Short, ByRef iTeamNo As Short) As ADODB.Recordset
+    Public Function rsGetTeamPtsPerGame(ByRef iGameNo As Short, ByRef iTeamNo As Short) As OleDbDataReader
         Dim strSQL As String
-        Dim rs As ADODB.Recordset
-
         strSQL = "SELECT tblRÈpondants.NoPartie, tblRÈpondants.No…quipe,  Sum(IIf(tblRÈpondants!PtsAlternatifs=0,tblSÈries!Points,tblSÈries!PtsAlternatifs)) AS SumOfPoints " & "FROM tblRÈpondants INNER JOIN tblSÈries ON (tblRÈpondants.NoSÈrie = tblSÈries.NoSÈrie) AND (tblRÈpondants.NoQuestion = tblSÈries.NoQuestion) " & "GROUP BY tblRÈpondants.NoPartie, tblRÈpondants.No…quipe " & "HAVING tblRÈpondants.NoPartie = " & Str(iGameNo) & "AND tblRÈpondants.No…quipe = " & Str(iTeamNo) & " " & "ORDER BY tblRÈpondants.NoPartie, tblRÈpondants.No…quipe"
+        'Dim rs As ADODB.Recordset
+        Dim command As New OleDbCommand(strSQL, gcConn)
+        Dim reader As OleDbDataReader = command.ExecuteReader()
 
-        rs = New ADODB.Recordset
-        '      ' rs = gcConn.Execute(strSQL)
-        rsGetTeamPtsPerGame = rs
+        rsGetTeamPtsPerGame = reader
 
     End Function
 
-    Public Function rsGetPlayerPtsForAGame(ByRef iGameNo As Short, ByRef iTeamNo As Short) As ADODB.Recordset
+    'Public Function rsGetPlayerPtsForAGame(ByRef iGameNo As Short, ByRef iTeamNo As Short) As OleDbDataReader
+    '    Dim strSQL As String
+    '    'Essayer plutÙt avec qryPointsJoueurParParties - version Covid
+    '    strSQL = "SELECT tblRÈpondants.NoPartie, IIf([tblJoueurs.PrÈnomJoueur] Is Null,[tblJoueurs.NomJoueur],[tblJoueurs.PrÈnomJoueur]+' '+[tblJoueurs.NomJoueur]) AS Nom, Sum(IIf(tblRÈpondants!PtsAlternatifs=0,tblSÈries!Points,tblSÈries!PtsAlternatifs)) AS SumOfPoints " & "FROM tblJoueurs INNER JOIN (tblRÈpondants INNER JOIN tblSÈries ON (tblRÈpondants.NoQuestion = tblSÈries.NoQuestion) AND (tblRÈpondants.NoSÈrie = tblSÈries.NoSÈrie)) ON (tblJoueurs.NoJoueur = tblRÈpondants.NoJoueur) AND (tblJoueurs.No…quipe = tblRÈpondants.No…quipe) " & "GROUP BY tblRÈpondants.NoPartie, IIf([tblJoueurs.PrÈnomJoueur] Is Null,[tblJoueurs.NomJoueur],[tblJoueurs.PrÈnomJoueur]+' '+[tblJoueurs.NomJoueur]), tblJoueurs.No…quipe " & "HAVING (((tblRÈpondants.NoPartie)=" & Str(iGameNo) & ") AND ((tblJoueurs.No…quipe)=" & Str(iTeamNo) & ")) " & "ORDER BY Sum(IIf(tblRÈpondants!PtsAlternatifs=0,tblSÈries!Points,tblSÈries!PtsAlternatifs)) DESC"
+
+
+    '    Dim command As New OleDbCommand(strSQL, gcConn)
+    '    Dim reader As OleDbDataReader = command.ExecuteReader()
+
+    '    rsGetPlayerPtsForAGame = reader
+
+    'End Function
+
+
+    Public Function rsGetPlayerPtsForAGame(ByRef iGameNo As Short) As OleDbDataReader
         Dim strSQL As String
-        Dim rs As ADODB.Recordset
+        'Essayer plutÙt avec qryPointsJoueurParParties - version Covid
+        strSQL = "SELECT NoPartie, Nom…quipe, joueur, Points " & "FROM qryPointsParJoueursParties  " & " Where NoPartie=" & Str(iGameNo) & " ORDER BY Points desc, nom…quipe, joueur"
 
-        strSQL = "SELECT tblRÈpondants.NoPartie, IIf([tblJoueurs.PrÈnomJoueur] Is Null,[tblJoueurs.NomJoueur],[tblJoueurs.PrÈnomJoueur]+' '+[tblJoueurs.NomJoueur]) AS Nom, Sum(IIf(tblRÈpondants!PtsAlternatifs=0,tblSÈries!Points,tblSÈries!PtsAlternatifs)) AS SumOfPoints " & "FROM tblJoueurs INNER JOIN (tblRÈpondants INNER JOIN tblSÈries ON (tblRÈpondants.NoQuestion = tblSÈries.NoQuestion) AND (tblRÈpondants.NoSÈrie = tblSÈries.NoSÈrie)) ON (tblJoueurs.NoJoueur = tblRÈpondants.NoJoueur) AND (tblJoueurs.No…quipe = tblRÈpondants.No…quipe) " & "GROUP BY tblRÈpondants.NoPartie, IIf([tblJoueurs.PrÈnomJoueur] Is Null,[tblJoueurs.NomJoueur],[tblJoueurs.PrÈnomJoueur]+' '+[tblJoueurs.NomJoueur]), tblJoueurs.No…quipe " & "HAVING (((tblRÈpondants.NoPartie)=" & Str(iGameNo) & ") AND ((tblJoueurs.No…quipe)=" & Str(iTeamNo) & ")) " & "ORDER BY Sum(IIf(tblRÈpondants!PtsAlternatifs=0,tblSÈries!Points,tblSÈries!PtsAlternatifs)) DESC"
+        Dim command As New OleDbCommand(strSQL, gcConn)
+        Dim reader As OleDbDataReader = command.ExecuteReader()
 
-        rs = New ADODB.Recordset
-        '    ' rs = gcConn.Execute(strSQL)
-        rsGetPlayerPtsForAGame = rs
+        rsGetPlayerPtsForAGame = reader
 
     End Function
 

@@ -63,8 +63,8 @@ Friend Class frmMain
 		
 		gcConn.Close()
 		lblAction.Text = ""
-		MsgBox("Terminé!")
-		
+		MsgBox("Terminé! Le fichier est prêt dans " & strPath & "\SiteWebTemp")
+
 	End Sub
 	
 	
