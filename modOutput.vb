@@ -149,12 +149,12 @@ Module modOutput
 
 	Function funGetCompteurs(ByVal iTeamNo As Short) As String
 
-		Dim rsCompteurs As ADODB.Recordset
+		Dim rsCompteurs As OleDb.OleDbDataReader
 		Dim ColWidth(8) As Short
 		Dim I As Short
 		Dim S As String
 		Dim strHREF As String
-		Dim MaxLigne As Short
+		'Dim MaxLigne As Short
 
 		ColWidth(1) = 30
 		ColWidth(2) = 210
@@ -164,6 +164,7 @@ Module modOutput
 		ColWidth(6) = 90
 		ColWidth(7) = 90
 		ColWidth(8) = 100
+
 
 		rsCompteurs = rsGetCompteurs(iTeamNo)
 
@@ -184,35 +185,36 @@ Module modOutput
 		S = S & "<TD WIDTH=" & Str(ColWidth(8)) & "><FONT FACE=VERDANA SIZE=2 COLOR='FFFFFF'><B>% des Pts Tot. *</B></FONT></TD>"
 		S = S & "</TR>"
 
-		If Not rsCompteurs.EOF Then
-			rsCompteurs.MoveFirst()
-			I = 1
-			While Not rsCompteurs.EOF
-				System.Windows.Forms.Application.DoEvents()
+		While rsCompteurs.Read()
+			'If Not rsCompteurs.EOF Then
+			'	rsCompteurs.MoveFirst()
+			'	I = 1
+			'	While Not rsCompteurs.EOF
+			System.Windows.Forms.Application.DoEvents()
 				S = S & "<TR BGCOLOR = white ALIGN=CENTER>"
 				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & Trim(Str(I)) & "</FONT></TD>"
-				S = S & "<TD ALIGN=LEFT><FONT FACE=VERDANA SIZE=2>" & rsCompteurs.Fields(1).Value & " " & rsCompteurs.Fields(2).Value & "</FONT></TD>"
-				If iTeamNo = -1 Then
-					strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsCompteurs.Fields(0).Value)) & ".htm" & """  > " & rsCompteurs.Fields(3).Value & "</A>"
-					S = S & "<TD ALIGN=LEFT><FONT FACE=VERDANA SIZE=2>" & strHREF & "</FONT></TD>"
-				End If
-				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs.Fields(4).Value & "</FONT></TD>"
-				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs.Fields(5).Value & "</FONT></TD>"
-				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs.Fields(6).Value & "</FONT></TD>"
-				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & System.Math.Round(rsCompteurs.Fields(7).Value, 2) & "</FONT></TD>"
-				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & System.Math.Round(rsCompteurs.Fields(8).Value, 2) & "</FONT></TD>"
-				S = S & "</TR>"
-				rsCompteurs.MoveNext()
-				I = I + 1
-			End While
-		Else
-			'C'est le dubut de la saison. Mettre des lignes vides
-			For I = 1 To 15
-				S = S & "<TR BGCOLOR = white ALIGN=CENTER>"
-				S = S & "<TD>&nbsp</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>"
-				S = S & "</TR>"
-			Next
-		End If
+			S = S & "<TD ALIGN=LEFT><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(1).ToString & " " & rsCompteurs(2).ToString & "</FONT></TD>"
+			If iTeamNo = -1 Then
+				strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsCompteurs(0).ToString)) & ".htm" & """  > " & rsCompteurs(3).ToString & "</A>"
+				S = S & "<TD ALIGN=LEFT><FONT FACE=VERDANA SIZE=2>" & strHREF & "</FONT></TD>"
+			End If
+			S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(4).ToString & "</FONT></TD>"
+			S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(5).ToString & "</FONT></TD>"
+			S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(6).ToString & "</FONT></TD>"
+			'S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & System.Math.Round(rsCompteurs(7).ToString, 2) & "</FONT></TD>"
+			'S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & System.Math.Round(rsCompteurs(8).ToString, 2) & "</FONT></TD>"
+			S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(7).ToString & "</FONT></TD>"
+			S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(8).ToString & "</FONT></TD>"
+			S = S & "</TR>"
+		End While
+		'Else
+		'	'C'est le dubut de la saison. Mettre des lignes vides
+		'	For I = 1 To 15
+		'		S = S & "<TR BGCOLOR = white ALIGN=CENTER>"
+		'		S = S & "<TD>&nbsp</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>"
+		'		S = S & "</TR>"
+		'	Next
+		'End If
 		S = S & "</TABLE>"
 
 		funGetCompteurs = S
@@ -297,7 +299,7 @@ Module modOutput
 		Dim strDate As String
 		Dim strPlayerPercent As String
 		Dim strHREF As String
-		Dim I As Short
+		'Dim I As Short
 		Dim S As String
 		Dim TextToDisplay As String
 
@@ -445,7 +447,7 @@ Module modOutput
 			S = S & strLine
 
 			'section detail de la partie
-			If (strTeamAPts > 0) And (strTeamBPts > 0) Then
+			If (strTeamAPts > "0") And (strTeamBPts > "0") Then
 				'la partie a eu lieu, afficher le détail
 				'aller chercher le pointage de chaque joueurs de l'équipe A et B
 				rsPlayersTeamAPts = rsGetPlayerPtsForAGame(rsGames(0).ToString)
