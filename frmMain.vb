@@ -11,8 +11,8 @@ Friend Class frmMain
 	'End Sub
 
 	Private Sub Command1_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command1.Click
-		Dim rsTeams As ADODB.Recordset
-		Dim I As Short
+		Dim rsTeams As OleDb.OleDbDataReader
+
 		Dim strPath As String
 		
 		strPath = My.Application.Info.DirectoryPath
@@ -24,7 +24,7 @@ Friend Class frmMain
 		If chkCompteurs.CheckState = 1 Then
 			lblAction.Text = "Création de la page : Compteurs"
 			System.Windows.Forms.Application.DoEvents()
-			Call subOutputCompteurs("Compteurs séries " & YEAR_Renamed, strPath & "\SiteWebTemp\compteurs.htm")
+			Call subOutputCompteurs("Compteurs " & YEAR_Renamed, strPath & "\SiteWebTemp\compteurs.htm")
 		End If
 		
 		If chkHoraire.CheckState = 1 Then
@@ -36,27 +36,32 @@ Friend Class frmMain
 		If chkClassement.CheckState = 1 Then
 			lblAction.Text = "Création de la page : Classement"
 			System.Windows.Forms.Application.DoEvents()
-			Call subOutputClassement("Classement séries " & YEAR_Renamed, strPath & "\SiteWebTemp\classement.htm")
+			Call subOutputClassement("Classement " & YEAR_Renamed, strPath & "\SiteWebTemp\classement.htm")
 		End If
 		
 		If chkEquipes.CheckState = 1 Then
 			If opt2Équipe.Checked Then 'Une équipe
 				rsTeams = rsGetTeams(False)
-				rsTeams.MoveFirst()
-				lblAction.Text = "Création de la page d'équipe : " & rsTeams.Fields(1).Value
-				System.Windows.Forms.Application.DoEvents()
-				Call subOutputEquipe(rsTeams.Fields(0).Value, rsTeams.Fields(1).Value, strPath & "\SiteWebTemp\equipe_" & Trim(Str(rsTeams.Fields(0).Value)) & ".htm")
-				lblAction.Text = "Création de la page d'équipe : " & rsTeams.Fields(3).Value
-				System.Windows.Forms.Application.DoEvents()
-				Call subOutputEquipe(rsTeams.Fields(2).Value, rsTeams.Fields(3).Value, strPath & "\SiteWebTemp\equipe_" & Trim(Str(rsTeams.Fields(2).Value)) & ".htm")
+				'rsTeams.MoveFirst()
+				While rsTeams.Read()
+
+					lblAction.Text = "Création de la page d'équipe : " & rsTeams(1).ToString
+					System.Windows.Forms.Application.DoEvents()
+					Call subOutputEquipe(rsTeams(0).ToString, rsTeams(1).ToString, strPath & "\SiteWebTemp\equipe_" & Trim(Str(rsTeams(0).ToString)) & ".htm")
+					'**lblAction.Text = "Création de la page d'équipe : " & rsTeams.Fields(3).Value
+
+					System.Windows.Forms.Application.DoEvents()
+					'**Call subOutputEquipe(rsTeams.Fields(2).Value, rsTeams.Fields(3).Value, strPath & "\SiteWebTemp\equipe_" & Trim(Str(rsTeams.Fields(2).Value)) & ".htm")
+				End While
 			Else 'Toutes les équipes
 				rsTeams = rsGetTeams(True)
-				rsTeams.MoveFirst()
-				While Not rsTeams.EOF
-					lblAction.Text = "Création de la page d'équipe : " & rsTeams.Fields(1).Value
+				While rsTeams.Read()
+					'rsTeams.MoveFirst()
+					'While Not rsTeams.EOF
+					lblAction.Text = "Création de la page d'équipe : " & rsTeams(1).ToString
 					System.Windows.Forms.Application.DoEvents()
-					Call subOutputEquipe(rsTeams.Fields(0).Value, rsTeams.Fields(1).Value, strPath & "\SiteWebTemp\equipe_" & Trim(Str(rsTeams.Fields(0).Value)) & ".htm")
-					rsTeams.MoveNext()
+					Call subOutputEquipe(rsTeams(0).ToString, rsTeams(1).ToString, strPath & "\SiteWebTemp\equipe_" & Trim(Str(rsTeams(0).ToString)) & ".htm")
+					'rsTeams.MoveNext()
 				End While
 			End If
 		End If

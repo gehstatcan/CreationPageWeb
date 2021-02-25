@@ -26,7 +26,7 @@ Module modOutput
 	
 	Sub subOutputClassement(ByRef strTitle As String, ByRef strFileName As String)
 
-		Dim rsClassement As ADODB.Recordset
+		Dim rsClassement As OleDb.OleDbDataReader
 		Dim ColWidth(13) As Short
 		Dim I As Short
 		Dim strHREF As String
@@ -80,35 +80,32 @@ Module modOutput
 
 		PrintLine(1, "<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=3>")
 
+		While rsClassement.Read()
 
-		rsClassement.MoveFirst()
-		I = 1
-		While Not rsClassement.EOF
+
 			System.Windows.Forms.Application.DoEvents()
 
 			PrintLine(1, "<TR ALIGN=CENTER BGCOLOR = white>")
 			PrintLine(1, "<TD WIDTH=30><FONT FACE=VERDANA SIZE=2 COLOR=Black>" & Trim(Str(I)) & "</FONT></TD>")
-			strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsClassement.Fields(0).Value)) & ".htm" & """  > " & rsClassement.Fields(1).Value & "</A>"
+			strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsClassement(0).ToString)) & ".htm" & """  > " & rsClassement(1).ToString & "</A>"
 			PrintLine(1, "<TD WIDTH=170 ALIGN=LEFT><FONT FACE=VERDANA SIZE=2 COLOR=black>" & strHREF & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(2).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(3).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(4).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(5).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(6).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(7).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(8).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & System.Math.Round(rsClassement.Fields(9).Value, 2) & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(10).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(11).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(12).Value & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(2).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(3).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(4).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(5).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(6).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(7).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(8).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(9).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(10).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(11).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(12).ToString & "</FONT></TD>")
 			PrintLine(1, "</TR>")
 
-			rsClassement.MoveNext()
-			I = I + 1
 		End While
 		PrintLine(1, "</TABLE>")
 		PrintLine(1, "<TABLE WIDTH=850 BORDER=0>")
-		PrintLine(1, "<TR><TD><FONT FACE=VERDANA SIZE=2>Trié par : 1-%, 2 -Diff. Ceci afin de tenir compte du nombre inégale de parties jouées.</TD></TR>")
+		PrintLine(1, "<TR><TD><FONT FACE=VERDANA SIZE=2>Trié par : 1-%, 2 -Dicoff. Ceci afin de tenir compte du nombre inégale de parties jouées.</TD></TR>")
 		PrintLine(1, "<TR><TD>&nbsp</TD></TR>")
 		PrintLine(1, "<TR><TD><FONT FACE=VERDANA SIZE=2><B>G</B> : Victoire par plus de 40 pts. (4 pts)</TD></TR>")
 		PrintLine(1, "<TR><TD><FONT FACE=VERDANA SIZE=2><B>GP</B>: Victoire par 40 pts ou moins. (3 pts)</TD></TR>")
@@ -119,9 +116,6 @@ Module modOutput
 		PrintLine(1, "</TABLE>")
 
 		FileClose(1)
-
-
-
 
 	End Sub
 
@@ -149,12 +143,12 @@ Module modOutput
 
 	Function funGetCompteurs(ByVal iTeamNo As Short) As String
 
-		Dim rsCompteurs As ADODB.Recordset
+		Dim rsCompteurs As OleDb.OleDbDataReader
 		Dim ColWidth(8) As Short
 		Dim I As Short
 		Dim S As String
 		Dim strHREF As String
-		Dim MaxLigne As Short
+		'Dim MaxLigne As Short
 
 		ColWidth(1) = 30
 		ColWidth(2) = 210
@@ -164,6 +158,7 @@ Module modOutput
 		ColWidth(6) = 90
 		ColWidth(7) = 90
 		ColWidth(8) = 100
+
 
 		rsCompteurs = rsGetCompteurs(iTeamNo)
 
@@ -184,35 +179,36 @@ Module modOutput
 		S = S & "<TD WIDTH=" & Str(ColWidth(8)) & "><FONT FACE=VERDANA SIZE=2 COLOR='FFFFFF'><B>% des Pts Tot. *</B></FONT></TD>"
 		S = S & "</TR>"
 
-		If Not rsCompteurs.EOF Then
-			rsCompteurs.MoveFirst()
-			I = 1
-			While Not rsCompteurs.EOF
-				System.Windows.Forms.Application.DoEvents()
+		While rsCompteurs.Read()
+			'If Not rsCompteurs.EOF Then
+			'	rsCompteurs.MoveFirst()
+			'	I = 1
+			'	While Not rsCompteurs.EOF
+			System.Windows.Forms.Application.DoEvents()
 				S = S & "<TR BGCOLOR = white ALIGN=CENTER>"
 				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & Trim(Str(I)) & "</FONT></TD>"
-				S = S & "<TD ALIGN=LEFT><FONT FACE=VERDANA SIZE=2>" & rsCompteurs.Fields(1).Value & " " & rsCompteurs.Fields(2).Value & "</FONT></TD>"
-				If iTeamNo = -1 Then
-					strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsCompteurs.Fields(0).Value)) & ".htm" & """  > " & rsCompteurs.Fields(3).Value & "</A>"
-					S = S & "<TD ALIGN=LEFT><FONT FACE=VERDANA SIZE=2>" & strHREF & "</FONT></TD>"
-				End If
-				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs.Fields(4).Value & "</FONT></TD>"
-				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs.Fields(5).Value & "</FONT></TD>"
-				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs.Fields(6).Value & "</FONT></TD>"
-				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & System.Math.Round(rsCompteurs.Fields(7).Value, 2) & "</FONT></TD>"
-				S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & System.Math.Round(rsCompteurs.Fields(8).Value, 2) & "</FONT></TD>"
-				S = S & "</TR>"
-				rsCompteurs.MoveNext()
-				I = I + 1
-			End While
-		Else
-			'C'est le dubut de la saison. Mettre des lignes vides
-			For I = 1 To 15
-				S = S & "<TR BGCOLOR = white ALIGN=CENTER>"
-				S = S & "<TD>&nbsp</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>"
-				S = S & "</TR>"
-			Next
-		End If
+			S = S & "<TD ALIGN=LEFT><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(1).ToString & " " & rsCompteurs(2).ToString & "</FONT></TD>"
+			If iTeamNo = -1 Then
+				strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsCompteurs(0).ToString)) & ".htm" & """  > " & rsCompteurs(3).ToString & "</A>"
+				S = S & "<TD ALIGN=LEFT><FONT FACE=VERDANA SIZE=2>" & strHREF & "</FONT></TD>"
+			End If
+			S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(4).ToString & "</FONT></TD>"
+			S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(5).ToString & "</FONT></TD>"
+			S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(6).ToString & "</FONT></TD>"
+			'S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & System.Math.Round(rsCompteurs(7).ToString, 2) & "</FONT></TD>"
+			'S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & System.Math.Round(rsCompteurs(8).ToString, 2) & "</FONT></TD>"
+			S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(7).ToString & "</FONT></TD>"
+			S = S & "<TD><FONT FACE=VERDANA SIZE=2>" & rsCompteurs(8).ToString & "</FONT></TD>"
+			S = S & "</TR>"
+		End While
+		'Else
+		'	'C'est le dubut de la saison. Mettre des lignes vides
+		'	For I = 1 To 15
+		'		S = S & "<TR BGCOLOR = white ALIGN=CENTER>"
+		'		S = S & "<TD>&nbsp</TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>"
+		'		S = S & "</TR>"
+		'	Next
+		'End If
 		S = S & "</TABLE>"
 
 		funGetCompteurs = S
@@ -297,7 +293,7 @@ Module modOutput
 		Dim strDate As String
 		Dim strPlayerPercent As String
 		Dim strHREF As String
-		Dim I As Short
+		'Dim I As Short
 		Dim S As String
 		Dim TextToDisplay As String
 
@@ -306,7 +302,7 @@ Module modOutput
 		ColWidth(1) = 20
 		ColWidth(2) = 30
 		ColWidth(3) = 80
-		ColWidth(4) = 50
+		ColWidth(4) = 55
 		ColWidth(5) = 170
 		ColWidth(6) = 70
 		ColWidth(7) = 170
@@ -319,6 +315,9 @@ Module modOutput
 
 		'Lecture de la table parties
 		rsGames = rsGetCalendrier(iTeamNo)
+
+
+
 
 		S = ""
 
@@ -445,7 +444,7 @@ Module modOutput
 			S = S & strLine
 
 			'section detail de la partie
-			If (strTeamAPts > 0) And (strTeamBPts > 0) Then
+			If (strTeamAPts > "0") And (strTeamBPts > "0") Then
 				'la partie a eu lieu, afficher le détail
 				'aller chercher le pointage de chaque joueurs de l'équipe A et B
 				rsPlayersTeamAPts = rsGetPlayerPtsForAGame(rsGames(0).ToString)
@@ -498,6 +497,7 @@ Module modOutput
 		PrintLine(1, "<BR><BR>")
 		PrintLine(1, "<FONT FACE=VERDANA COLOR = black SIZE=4><B>calendrier</FONT><BR>")
 		PrintLine(1, "<BR>")
+
 		PrintLine(1, funGetCalendrier(iTeamNo))
 		PrintLine(1, "<BR><BR>")
 		PrintLine(1, "<FONT FACE=VERDANA COLOR = black SIZE=4><B>joueurs</FONT><BR>")

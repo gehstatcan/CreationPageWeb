@@ -174,7 +174,7 @@
         Me.Name = "frmMain"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Geh Version 1.3"
+        Me.Text = "GEH Statcan - Création de pages web "
         Me.Frame1.ResumeLayout(False)
         Me.Frame1.PerformLayout()
         Me.ResumeLayout(False)
