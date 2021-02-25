@@ -12,7 +12,7 @@ Friend Class frmMain
 
 	Private Sub Command1_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command1.Click
 		Dim rsTeams As OleDb.OleDbDataReader
-		Dim I As Short
+
 		Dim strPath As String
 		
 		strPath = My.Application.Info.DirectoryPath
@@ -24,7 +24,7 @@ Friend Class frmMain
 		If chkCompteurs.CheckState = 1 Then
 			lblAction.Text = "Création de la page : Compteurs"
 			System.Windows.Forms.Application.DoEvents()
-			Call subOutputCompteurs("Compteurs séries " & YEAR_Renamed, strPath & "\SiteWebTemp\compteurs.htm")
+			Call subOutputCompteurs("Compteurs " & YEAR_Renamed, strPath & "\SiteWebTemp\compteurs.htm")
 		End If
 		
 		If chkHoraire.CheckState = 1 Then
@@ -36,7 +36,7 @@ Friend Class frmMain
 		If chkClassement.CheckState = 1 Then
 			lblAction.Text = "Création de la page : Classement"
 			System.Windows.Forms.Application.DoEvents()
-			Call subOutputClassement("Classement séries " & YEAR_Renamed, strPath & "\SiteWebTemp\classement.htm")
+			Call subOutputClassement("Classement " & YEAR_Renamed, strPath & "\SiteWebTemp\classement.htm")
 		End If
 		
 		If chkEquipes.CheckState = 1 Then

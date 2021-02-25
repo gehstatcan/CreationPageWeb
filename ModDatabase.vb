@@ -14,6 +14,7 @@ Module ModDatabase
     Public Function rsGetCalendrier(ByVal iTeamNo As Short) As OleDbDataReader
         Dim strSQL As String
 
+
         strSQL = "SELECT * FROM qry_intranet_calendrier "
         If iTeamNo > -1 Then
             strSQL = strSQL & "WHERE tbl…quipes.No…quipe = " & Str(iTeamNo) & " OR tbl…quipes_1.No…quipe = " & Str(iTeamNo) & " "
@@ -101,15 +102,16 @@ Module ModDatabase
 
     End Function
 
-    Public Function rsGetClassement() As ADODB.Recordset
+    Public Function rsGetClassement() As OleDbDataReader
         Dim strSQL As String
-        Dim rs As ADODB.Recordset
 
         strSQL = "SELECT * FROM qryRapClassement_final"
 
-        rs = New ADODB.Recordset
-        ' ' rs = gcConn.Execute(strSQL)
-        rsGetClassement = rs
+        Dim command As New OleDbCommand(strSQL, gcConn)
+
+        Dim reader As OleDbDataReader = command.ExecuteReader()
+
+        rsGetClassement = reader
 
     End Function
 
@@ -125,7 +127,7 @@ Module ModDatabase
         Else
             strSQL = "SELECT tbl…quipes.No…quipe, qryStatPtsTotJoueurs.* " & "FROM qryStatPtsTotJoueurs " & "INNER JOIN tbl…quipes ON qryStatPtsTotJoueurs.Nom…quipe = tbl…quipes.Nom…quipe "
         End If
-        strSQL = strSQL & " ORDER BY Pourcentage DESC"
+        strSQL = strSQL & " ORDER BY ptsParPartie DESC, PtsTotJoueurs DESC, NomJoueur"
         Dim command As New OleDbCommand(strSQL, gcConn)
 
         Dim reader As OleDbDataReader = command.ExecuteReader()

@@ -26,7 +26,7 @@ Module modOutput
 	
 	Sub subOutputClassement(ByRef strTitle As String, ByRef strFileName As String)
 
-		Dim rsClassement As ADODB.Recordset
+		Dim rsClassement As OleDb.OleDbDataReader
 		Dim ColWidth(13) As Short
 		Dim I As Short
 		Dim strHREF As String
@@ -80,35 +80,32 @@ Module modOutput
 
 		PrintLine(1, "<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=3>")
 
+		While rsClassement.Read()
 
-		rsClassement.MoveFirst()
-		I = 1
-		While Not rsClassement.EOF
+
 			System.Windows.Forms.Application.DoEvents()
 
 			PrintLine(1, "<TR ALIGN=CENTER BGCOLOR = white>")
 			PrintLine(1, "<TD WIDTH=30><FONT FACE=VERDANA SIZE=2 COLOR=Black>" & Trim(Str(I)) & "</FONT></TD>")
-			strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsClassement.Fields(0).Value)) & ".htm" & """  > " & rsClassement.Fields(1).Value & "</A>"
+			strHREF = "<A HREF = """ & "equipe_" & Trim(Str(rsClassement(0).ToString)) & ".htm" & """  > " & rsClassement(1).ToString & "</A>"
 			PrintLine(1, "<TD WIDTH=170 ALIGN=LEFT><FONT FACE=VERDANA SIZE=2 COLOR=black>" & strHREF & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(2).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(3).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(4).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(5).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(6).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(7).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(8).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & System.Math.Round(rsClassement.Fields(9).Value, 2) & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(10).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(11).Value & "</FONT></TD>")
-			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement.Fields(12).Value & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(2).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(3).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(4).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(5).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(6).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(7).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(8).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=50><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(9).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(10).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(11).ToString & "</FONT></TD>")
+			PrintLine(1, "<TD WIDTH=70><FONT FACE=VERDANA SIZE=2 COLOR=black>" & rsClassement(12).ToString & "</FONT></TD>")
 			PrintLine(1, "</TR>")
 
-			rsClassement.MoveNext()
-			I = I + 1
 		End While
 		PrintLine(1, "</TABLE>")
 		PrintLine(1, "<TABLE WIDTH=850 BORDER=0>")
-		PrintLine(1, "<TR><TD><FONT FACE=VERDANA SIZE=2>Trié par : 1-%, 2 -Diff. Ceci afin de tenir compte du nombre inégale de parties jouées.</TD></TR>")
+		PrintLine(1, "<TR><TD><FONT FACE=VERDANA SIZE=2>Trié par : 1-%, 2 -Dicoff. Ceci afin de tenir compte du nombre inégale de parties jouées.</TD></TR>")
 		PrintLine(1, "<TR><TD>&nbsp</TD></TR>")
 		PrintLine(1, "<TR><TD><FONT FACE=VERDANA SIZE=2><B>G</B> : Victoire par plus de 40 pts. (4 pts)</TD></TR>")
 		PrintLine(1, "<TR><TD><FONT FACE=VERDANA SIZE=2><B>GP</B>: Victoire par 40 pts ou moins. (3 pts)</TD></TR>")
@@ -119,9 +116,6 @@ Module modOutput
 		PrintLine(1, "</TABLE>")
 
 		FileClose(1)
-
-
-
 
 	End Sub
 
@@ -308,7 +302,7 @@ Module modOutput
 		ColWidth(1) = 20
 		ColWidth(2) = 30
 		ColWidth(3) = 80
-		ColWidth(4) = 50
+		ColWidth(4) = 55
 		ColWidth(5) = 170
 		ColWidth(6) = 70
 		ColWidth(7) = 170
@@ -321,6 +315,9 @@ Module modOutput
 
 		'Lecture de la table parties
 		rsGames = rsGetCalendrier(iTeamNo)
+
+
+
 
 		S = ""
 
@@ -500,6 +497,7 @@ Module modOutput
 		PrintLine(1, "<BR><BR>")
 		PrintLine(1, "<FONT FACE=VERDANA COLOR = black SIZE=4><B>calendrier</FONT><BR>")
 		PrintLine(1, "<BR>")
+
 		PrintLine(1, funGetCalendrier(iTeamNo))
 		PrintLine(1, "<BR><BR>")
 		PrintLine(1, "<FONT FACE=VERDANA COLOR = black SIZE=4><B>joueurs</FONT><BR>")
