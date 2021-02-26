@@ -549,32 +549,32 @@ Module modOutput
 		funGetScript = S
 	End Function
 
-	Private Function funGetDayOfWeek(ByVal strD As String) As String
-		'Retourne le jour de la semaine de la date strD
-		Dim strJour As String
+	'Private Function funGetDayOfWeek(ByVal strD As String) As String
+	'	'Retourne le jour de la semaine de la date strD
+	'	Dim strJour As String
 
-		strJour = Mid(VB6.Format(strD, "dddd, mmmm dd, yyyy"), 1, InStr(1, VB6.Format(strD, "dddd, mmmm dd, yyyy"), ",") - 1)
+	'	strJour = Mid(VB6.Format(strD, "dddd, mmmm dd, yyyy"), 1, InStr(1, VB6.Format(strD, "dddd, mmmm dd, yyyy"), ",") - 1)
 
-		Select Case strJour
-			Case "Monday"
-				strJour = "lun"
-			Case "Tuesday"
-				strJour = "mar"
-			Case "Wednesday"
-				strJour = "mer"
-			Case "Thursday"
-				strJour = "jeu"
-			Case "Friday"
-				strJour = "ven"
-			Case "Saturday"
-				strJour = "sam"
-			Case "Sunday"
-				strJour = "dim"
-		End Select
+	'	Select Case strJour
+	'		Case "Monday"
+	'			strJour = "lun"
+	'		Case "Tuesday"
+	'			strJour = "mar"
+	'		Case "Wednesday"
+	'			strJour = "mer"
+	'		Case "Thursday"
+	'			strJour = "jeu"
+	'		Case "Friday"
+	'			strJour = "ven"
+	'		Case "Saturday"
+	'			strJour = "sam"
+	'		Case "Sunday"
+	'			strJour = "dim"
+	'	End Select
 
-		funGetDayOfWeek = strJour
+	'	funGetDayOfWeek = strJour
 
-	End Function
+	'End Function
 
 	Private Function funFormatDate(ByVal strD As String) As String
 		'change le format de la date de : YYYY-MM-DD à DD-sept-YY
