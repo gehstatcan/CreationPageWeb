@@ -106,15 +106,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-    <COMReference Include="DAO">
-      <Guid>{00025E01-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="Microsoft.Office.Interop.Access">
       <Guid>{4AFFC9A0-5F99-101B-AF4E-00AA003F0F07}</Guid>
       <Lcid>0</Lcid>
@@ -172,16 +163,9 @@
     <Compile Include="modOutput.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UpgradeSupport.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <EmbeddedResource Include="frmMain.resX">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
-    <None Include="CréationPagesWeb_TemporaryKey.pfx" />
-    <None Include="_UpgradeReport.htm">
-      <SubType>Preview</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="My Project\" />
