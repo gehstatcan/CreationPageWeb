@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="FichierBaseDeDonnées" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F:\Users\MM\Documents\Git\SaisonEnCours\SaisonEnCours.mdb</Value>
+    </Setting>
+    <Setting Name="RépertoiresSiteweb" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F:\Users\MM\Documents\Git\gehstatcan.github.io</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

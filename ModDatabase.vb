@@ -7,7 +7,7 @@ Module ModDatabase
         'Connect to database
         'gcConn = New ADODB.Connection
         gcConn = New OleDb.OleDbConnection
-        gcConn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & strPath & "\SaisonEnCours.mdb;" & "Persist Security Info=False"
+        gcConn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & strPath & ";" & "Persist Security Info=False"
         gcConn.Open()
     End Sub
 

@@ -40,6 +40,10 @@
         Me.chkClassement = New System.Windows.Forms.CheckBox()
         Me.Command1 = New System.Windows.Forms.Button()
         Me.lblAction = New System.Windows.Forms.Label()
+        Me.txtBaseDedonnées = New System.Windows.Forms.TextBox()
+        Me.lblBaseDeDonnées = New System.Windows.Forms.Label()
+        Me.txtRépertoireSiteWeb = New System.Windows.Forms.TextBox()
+        Me.lblRépertoireSiteWeb = New System.Windows.Forms.Label()
         Me.Frame1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -141,7 +145,7 @@
         Me.Command1.BackColor = System.Drawing.SystemColors.Control
         Me.Command1.Cursor = System.Windows.Forms.Cursors.Default
         Me.Command1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Command1.Location = New System.Drawing.Point(69, 199)
+        Me.Command1.Location = New System.Drawing.Point(89, 306)
         Me.Command1.Name = "Command1"
         Me.Command1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Command1.Size = New System.Drawing.Size(159, 48)
@@ -160,12 +164,49 @@
         Me.lblAction.Size = New System.Drawing.Size(283, 16)
         Me.lblAction.TabIndex = 2
         '
+        'txtBaseDedonnées
+        '
+        Me.txtBaseDedonnées.Location = New System.Drawing.Point(2, 230)
+        Me.txtBaseDedonnées.Name = "txtBaseDedonnées"
+        Me.txtBaseDedonnées.Size = New System.Drawing.Size(328, 20)
+        Me.txtBaseDedonnées.TabIndex = 4
+        '
+        'lblBaseDeDonnées
+        '
+        Me.lblBaseDeDonnées.AutoSize = True
+        Me.lblBaseDeDonnées.Location = New System.Drawing.Point(2, 208)
+        Me.lblBaseDeDonnées.Name = "lblBaseDeDonnées"
+        Me.lblBaseDeDonnées.Size = New System.Drawing.Size(90, 13)
+        Me.lblBaseDeDonnées.TabIndex = 5
+        Me.lblBaseDeDonnées.Text = "Base de données"
+        '
+        'txtRépertoireSiteWeb
+        '
+        Me.txtRépertoireSiteWeb.Location = New System.Drawing.Point(2, 280)
+        Me.txtRépertoireSiteWeb.Name = "txtRépertoireSiteWeb"
+        Me.txtRépertoireSiteWeb.Size = New System.Drawing.Size(328, 20)
+        Me.txtRépertoireSiteWeb.TabIndex = 6
+        Me.txtRépertoireSiteWeb.Text = "Site Web"
+        '
+        'lblRépertoireSiteWeb
+        '
+        Me.lblRépertoireSiteWeb.AutoSize = True
+        Me.lblRépertoireSiteWeb.Location = New System.Drawing.Point(2, 261)
+        Me.lblRépertoireSiteWeb.Name = "lblRépertoireSiteWeb"
+        Me.lblRépertoireSiteWeb.Size = New System.Drawing.Size(98, 13)
+        Me.lblRépertoireSiteWeb.TabIndex = 7
+        Me.lblRépertoireSiteWeb.Text = "Répertoire site web"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(343, 271)
+        Me.ClientSize = New System.Drawing.Size(336, 365)
+        Me.Controls.Add(Me.lblRépertoireSiteWeb)
+        Me.Controls.Add(Me.txtRépertoireSiteWeb)
+        Me.Controls.Add(Me.lblBaseDeDonnées)
+        Me.Controls.Add(Me.txtBaseDedonnées)
         Me.Controls.Add(Me.Frame1)
         Me.Controls.Add(Me.Command1)
         Me.Controls.Add(Me.lblAction)
@@ -178,10 +219,15 @@
         Me.Frame1.ResumeLayout(False)
         Me.Frame1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents opt2Équipe As RadioButton
     Friend WithEvents optToutesLesÉquipes As RadioButton
+    Friend WithEvents txtBaseDedonnées As TextBox
+    Friend WithEvents lblBaseDeDonnées As Label
+    Friend WithEvents txtRépertoireSiteWeb As TextBox
+    Friend WithEvents lblRépertoireSiteWeb As Label
 #End Region
 End Class

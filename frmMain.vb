@@ -14,9 +14,11 @@ Friend Class frmMain
 		Dim rsTeams As OleDb.OleDbDataReader
 
 		Dim strPath As String
-		
-		strPath = My.Application.Info.DirectoryPath
-		
+		Dim strPathPageWeb As String
+
+		strPath = My.Settings.FichierBaseDeDonnées
+		strPathPageWeb = My.Settings.RépertoiresSiteweb
+
 		lblAction.Text = "Connection à la base de données..."
 		System.Windows.Forms.Application.DoEvents()
 		Call ConnectToDatabase(strPath)
@@ -24,19 +26,19 @@ Friend Class frmMain
 		If chkCompteurs.CheckState = 1 Then
 			lblAction.Text = "Création de la page : Compteurs"
 			System.Windows.Forms.Application.DoEvents()
-			Call subOutputCompteurs("Compteurs " & YEAR_Renamed, strPath & "\SiteWebTemp\compteurs.htm")
+			Call subOutputCompteurs("Compteurs " & YEAR_Renamed, strPathPageWeb & "\compteurs.htm")
 		End If
 		
 		If chkHoraire.CheckState = 1 Then
 			lblAction.Text = "Création de la page : Calendrier"
 			System.Windows.Forms.Application.DoEvents()
-			Call subOutputCalendrier(-1, "Calendrier " & YEAR_Renamed, strPath & "\SiteWebTemp\calendrier.htm")
+			Call subOutputCalendrier(-1, "Calendrier " & YEAR_Renamed, strPathPageWeb & "\calendrier.htm")
 		End If
 		
 		If chkClassement.CheckState = 1 Then
 			lblAction.Text = "Création de la page : Classement"
 			System.Windows.Forms.Application.DoEvents()
-			Call subOutputClassement("Classement " & YEAR_Renamed, strPath & "\SiteWebTemp\classement.htm")
+			Call subOutputClassement("Classement " & YEAR_Renamed, strPathPageWeb & "\classement.htm")
 		End If
 		
 		If chkEquipes.CheckState = 1 Then
@@ -47,7 +49,7 @@ Friend Class frmMain
 
 					lblAction.Text = "Création de la page d'équipe : " & rsTeams(1).ToString
 					System.Windows.Forms.Application.DoEvents()
-					Call subOutputEquipe(rsTeams(0).ToString, rsTeams(1).ToString, strPath & "\SiteWebTemp\equipe_" & Trim(Str(rsTeams(0).ToString)) & ".htm")
+					Call subOutputEquipe(rsTeams(0).ToString, rsTeams(1).ToString, strPathPageWeb & "\equipe_" & Trim(Str(rsTeams(0).ToString)) & ".htm")
 					'**lblAction.Text = "Création de la page d'équipe : " & rsTeams.Fields(3).Value
 
 					System.Windows.Forms.Application.DoEvents()
@@ -60,7 +62,7 @@ Friend Class frmMain
 					'While Not rsTeams.EOF
 					lblAction.Text = "Création de la page d'équipe : " & rsTeams(1).ToString
 					System.Windows.Forms.Application.DoEvents()
-					Call subOutputEquipe(rsTeams(0).ToString, rsTeams(1).ToString, strPath & "\SiteWebTemp\equipe_" & Trim(Str(rsTeams(0).ToString)) & ".htm")
+					Call subOutputEquipe(rsTeams(0).ToString, rsTeams(1).ToString, strPathPageWeb & "\equipe_" & Trim(Str(rsTeams(0).ToString)) & ".htm")
 					'rsTeams.MoveNext()
 				End While
 			End If
@@ -68,7 +70,7 @@ Friend Class frmMain
 		
 		gcConn.Close()
 		lblAction.Text = ""
-		MsgBox("Terminé! Le fichier est prêt dans " & strPath & "\SiteWebTemp")
+		MsgBox("Terminé! Les fichiers sont prêts dans " & strPathPageWeb)
 
 	End Sub
 	
@@ -78,7 +80,12 @@ Friend Class frmMain
 	End Sub
 	
 	Private Sub frmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		
+
+		'Initialisation des valeurs à partir des "settings"
+		txtBaseDedonnées.Text = My.Settings.FichierBaseDeDonnées
+		txtRépertoireSiteWeb.Text = My.Settings.RépertoiresSiteweb
+
+
 		chkHoraire.CheckState = System.Windows.Forms.CheckState.Checked
 		chkClassement.CheckState = System.Windows.Forms.CheckState.Checked
 		chkCompteurs.CheckState = System.Windows.Forms.CheckState.Checked
@@ -89,5 +96,11 @@ Friend Class frmMain
 
 	Private Sub _optEquipes_0_CheckedChanged(sender As Object, e As EventArgs)
 
+	End Sub
+
+	Private Sub txtBaseDedonnées_TextChanged(sender As Object, e As EventArgs) Handles txtBaseDedonnées.TextChanged
+		'Sauvegardes des valeurs dans my.settings.
+		My.Settings.FichierBaseDeDonnées = txtBaseDedonnées.Text
+		My.Settings.Save()
 	End Sub
 End Class
