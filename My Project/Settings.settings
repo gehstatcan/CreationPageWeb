@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="FichierBaseDeDonnées" Type="System.String" Scope="User">
-      <Value Profile="(Default)">F:\Users\MM\Documents\Git\SaisonEnCours\SaisonEnCours.mdb</Value>
+      <Value Profile="(Default)">C:\Git\SaisonEnCours\SaisonEnCours.mdb</Value>
     </Setting>
     <Setting Name="RépertoiresSiteweb" Type="System.String" Scope="User">
-      <Value Profile="(Default)">F:\Users\MM\Documents\Git\gehstatcan.github.io</Value>
+      <Value Profile="(Default)">C:\Git\gehstatcan.github.io</Value>
     </Setting>
   </Settings>
 </SettingsFile>
