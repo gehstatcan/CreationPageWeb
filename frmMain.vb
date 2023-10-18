@@ -103,4 +103,10 @@ Friend Class frmMain
 		My.Settings.FichierBaseDeDonnées = txtBaseDedonnées.Text
 		My.Settings.Save()
 	End Sub
+
+	Private Sub txtRépertoireSiteWeb_TextChanged(sender As Object, e As EventArgs) Handles txtRépertoireSiteWeb.TextChanged
+		'Sauvegardes des valeurs dans my.settings.
+		My.Settings.RépertoiresSiteweb = txtRépertoireSiteWeb.Text
+		My.Settings.Save()
+	End Sub
 End Class

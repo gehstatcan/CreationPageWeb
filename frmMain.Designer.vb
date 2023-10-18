@@ -186,7 +186,6 @@
         Me.txtRépertoireSiteWeb.Name = "txtRépertoireSiteWeb"
         Me.txtRépertoireSiteWeb.Size = New System.Drawing.Size(328, 20)
         Me.txtRépertoireSiteWeb.TabIndex = 6
-        Me.txtRépertoireSiteWeb.Text = "Site Web"
         '
         'lblRépertoireSiteWeb
         '
