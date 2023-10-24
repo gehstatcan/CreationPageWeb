@@ -1,0 +1,13 @@
+---
+title: "GEH Statcan"
+---
+
+Nouveau site de la ligue de génies en herbe.
+
+Ceci est la page index.qmd
+
+Documentation de Quarto <https://quarto.org/docs/websites>.
+
+```{r}
+ 
+```

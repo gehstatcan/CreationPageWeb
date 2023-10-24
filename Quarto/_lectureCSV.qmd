@@ -1,0 +1,33 @@
+---
+execute:
+  echo: false
+---
+
+{{< include _initialisation.qmd >}}
+
+```{r}
+#| warning: false
+#| message : false
+#| results : hide
+
+
+# Lecture des CSV (tables)
+  équipes <- read.csv(file_path_équipes, header = TRUE, sep = ",") %>% arrange(NoÉquipe)
+  parties <- read.csv(file_path_parties, header = TRUE, sep = ",") %>% arrange(NoPartie)
+  joueurs <- read.csv(file_path_joueurs, header = TRUE, sep = ",") %>% arrange(NoÉquipe, NoJoueur)
+  RépondantsParJoueurs <- read.csv(file_path_RépondantsParJoueurs, header = TRUE, sep = ",") %>% arrange(NoPartie, NoÉquipe)
+
+# Calendrier fait ici car requis pour le classement.
+  calendrier <- merge(parties, équipes, by.x = "NoÉquipeA", by.y = "NoÉquipe")
+  calendrier <- merge(calendrier, équipes, by.x = "NoÉquipeB", by.y = "NoÉquipe", suffixes = c("A", "B"))
+
+# Ajout des points des équipes
+  ptsParPartieÉquipe <- aggregate(Points ~ NoPartie + NoÉquipe, data = RépondantsParJoueurs[1:369, ], FUN = sum) %>% arrange(NoPartie, NoÉquipe)
+  calendrier <- merge(calendrier, ptsParPartieÉquipe, by.x = c("NoPartie", "NoÉquipeA"), by.y = c("NoPartie", "NoÉquipe"), all.x = TRUE) %>% rename("PointsA" = "Points")
+  calendrier <- merge(calendrier, ptsParPartieÉquipe, by.x = c("NoPartie", "NoÉquipeB"), by.y = c("NoPartie", "NoÉquipe"), all.x = TRUE) %>% 
+  rename("PointsB" = "Points") %>%
+  arrange(NoPartie)
+  
+  calendrier <- calendrier[, c("NoPartie", "Date", "NomÉquipeA", "PointsA", "NoÉquipeA", "NomÉquipeB", "PointsB", "NoÉquipeB","NoÉquipeQuestionnaire", "NoQuestionnaire", "NomAnimateur", "LienReunion", "LienConsole", "LienBouton")] %>%
+  arrange(NoPartie)
+```

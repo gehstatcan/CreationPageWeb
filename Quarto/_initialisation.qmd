@@ -1,0 +1,57 @@
+---
+execute:
+  echo: false
+---
+
+<!--# Code à rouler en premier. Inclus dans _lectureCSV. -->
+
+```{r initialisation}
+#| warning: false
+#| message : false
+#| results : hide
+
+#Définition des librairies
+  if (!require("dplyr", character.only = TRUE)) {
+    install.packages("dplyr")
+    }
+  library(dplyr)
+  
+  if (!require("reactable", character.only = TRUE)) {
+    install.packages("reactable")
+    }
+  library(reactable)
+  
+  if (!require("readr", character.only = TRUE)) {
+    install.packages("readr")
+    }
+  library(readr)
+ if (!require("dplyr", character.only = TRUE)) {
+    install.packages("dplyr")
+    }
+  library(dplyr)
+  if (!require("reactable", character.only = TRUE)) {
+    # If tidyr is not installed, install it
+    install.packages("tidyr")
+  }
+  library("tidyr")
+
+# Définition des variables
+  écartPoints <- 40
+  répertoire_données <- "F:/Users/MM/Documents/Git/Quarto/"
+  répertoire_code <- "F:/Users/MM/Documents/Git/Quarto/"
+
+  setwd(répertoire_code)
+
+# Set the time zone to your desired value
+  Sys.setenv(TZ = "Canada/Eastern")
+  Sys.getenv("TZ")
+
+# Construction des noms de fichiers à charger (les tables)
+  file_path_équipes <- paste0(répertoire_données, "tblÉquipes.csv")
+  file_path_parties <- paste0(répertoire_données, "tblParties.csv")
+  file_path_joueurs <- paste0(répertoire_données, "tblJoueurs.csv")
+  file_path_RépondantsParJoueurs <- paste0(répertoire_données, "tblRépondantsParJoueurs.csv")
+
+
+### Main fin
+```

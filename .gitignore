@@ -9,6 +9,48 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.mdb
+
+# R related
+*.Rproj.user/
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.Rmetadata
+*.RData
+.Rproj.user/
+
+# Cache and generated files:
+.DS_Store
+Thumbs.db
+.Rcheck/
+_cache/
+_bookdown_files/
+_bookdown_output/
+_site_cache/
+_site/
+.last_built
+.sass-cache/
+_html_*
+*.html
+*.docx
+*.pdf
+*.csv
+
+# Logs, reports, or temporary files:
+*.log
+*.out
+*.rds
+*.sqlite
+*.sqlite3
+
+#Environment and project files:
+.env
+.project
+.envrc
+
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -350,3 +392,4 @@ MigrationBackup/
 .ionide/
 
 *.ldb
+.Rproj.user

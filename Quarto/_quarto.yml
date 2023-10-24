@@ -1,0 +1,41 @@
+project:
+  type: website
+  output-dir: _site/Saison22
+
+website:
+  title: "GEH Statcan"
+  navbar:
+    left:
+      - href: calendrier.qmd
+        text: "Calendrier"
+      - href: classement.qmd
+        text: "Classement"
+      - href: compteurs.qmd
+        text: "Compteurs"
+      - href: calendrier.qmd
+        text: "Documentation"
+      - href: calendrier.qmd
+        text: "Saisons Précédentes"
+format:
+  html:
+    theme: Lumen
+    css: styles.css
+    toc: false
+    grid:
+      sidebar-width: 20px
+      body-width: 20000px
+      margin-width: 20px
+      gutter-width: 1.5rem    
+
+editor: visual
+
+preprocess:
+  - name: read_data
+    commands:
+      - R code: |
+          library(dplyr)
+          répertoire_données <- "F:/Users/MM/Documents/Git/Quarto/"
+          # Construction des noms de fichiers à charger (les tables)
+          file_path_équipes <- paste0(répertoire_données, "tblEquipes.csv")
+          # Lecture des CSV (tables)
+          équipes <- read.csv(file_path_équipes, header = TRUE, sep = ",") %>% arrange(NoÉquipe)
