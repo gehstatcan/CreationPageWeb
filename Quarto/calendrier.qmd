@@ -54,33 +54,34 @@ LienQuestionnaire <- colDef(
   name = "Questionnaire",
   cell = function(value, index, column_name) {
     # Obtenez l'URL correspondant dans la colonne "URL"
-    url <- paste0("../Questionnaires/match",calendrier[index, "NoQuestionnaire"],".htm")
-    
+    #url <- paste0("../../Questionnaires/match",calendrier[index, "NoQuestionnaire"],".htm")
+     url2 <- paste0("../../Questionnaires/match",calendrier[index, "NoQuestionnaire"],".htm")
     
     # Renvoyez le HTML du lien
     # htmltools::HTML(link)
-    htmltools::tags$a(href = url, target = "_blank", value)
+    htmltools::tags$a(href = url2, target = "_blank", value)
   }
 )
 
 
-
-#V2.2, C'est bon!
-NomColonneAExclure <- c("LienConsole", "NoÉquipeA", "NoÉquipeB","NoÉquipeQuestionnaire","NoQuestionnaire","PosFinale", "Carillon")
+#Ordre et sélection des colonnes
+NomColonneAExclure <- c("LienConsole","NoQuestionnaire")
+calendrier <- calendrier %>%
+  select("NoPartie", "Date", "NomÉquipeA","PointsA", "NomÉquipeB", "PointsB","NomÉquipeQuestionnaire", "NomAnimateur", "LienReunion", "LienBouton","NoQuestionnaire","LienConsole")
 
 reactable(
+  #Il faut enlver les colonnes utilisé pour les URL
   calendrier[, !(names(calendrier) %in% NomColonneAExclure)], #exclusion de la colonne LienConsole
 
-  bordered = TRUE,
-  highlight = TRUE,
+  bordered = FALSE,
+  highlight = FALSE,
   pagination = FALSE,
   
   #valeurs par défaut pour les colonnes
   defaultColDef = colDef(
-    header = function(value) gsub(".", " ", value, fixed = TRUE),
     # cell = function(value) format(value, nsmall = 1),
     align = "left",
-    minWidth = 10
+    minWidth = 20
     #,
     #headerStyle = list(background = "#f7f7f8")
   ),
@@ -92,18 +93,24 @@ reactable(
     "NomÉquipeB" =  colDef(name = "Équipe B",maxWidth = 250),    
     "PointsA" =   colDef(name = "Pts",align = "center",maxWidth = 50),
     "PointsB" =   colDef(name = "Pts",align = "center",maxWidth = 50),
-    "LienReunion" = colDef(cell = function(value, index) {
-      # Render as a link
-      Texte <- sprintf("%s%s",  "Lien Teams #", index)
-      htmltools::tags$a(href = value, target = "_blank", Texte)
-    },name = "Lien Réunion"),
-    NomAnimateur = AnimateurConsole, 
     NomÉquipeQuestionnaire = LienQuestionnaire,
     LienBouton = colDef(cell = function(value, index) {
       # Render as a link
       Texte <- sprintf("%s%s",  "Lien joueur #", index)
       htmltools::tags$a(href = value, target = "_blank", Texte)
-    })
+    }),
+    "LienReunion" = colDef(cell = function(value, index) {
+      # Render as a link
+      Texte <- sprintf("%s%s",  "Lien Teams #", index)
+      htmltools::tags$a(href = value, target = "_blank", Texte)
+    },name = "Lien Réunion"),
+    NomÉquipeQuestionnaire = LienQuestionnaire,
+    LienBouton = colDef(cell = function(value, index) {
+      # Render as a link
+      Texte <- sprintf("%s%s",  "Lien joueur #", index)
+      htmltools::tags$a(href = value, target = "_blank", Texte)
+    }),    
+    NomAnimateur = AnimateurConsole
   ),
   
   #Définition de la fonction details pour fournir un contenu personnalisé

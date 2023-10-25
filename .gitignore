@@ -30,6 +30,7 @@ _bookdown_files/
 _bookdown_output/
 _site_cache/
 _site/
+site_libs/
 .last_built
 .sass-cache/
 _html_*

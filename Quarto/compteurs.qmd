@@ -16,10 +16,8 @@ execute:
 
 # Fusionne les DataFrames joueurs et équipes, ajoute le suffixe "(Équipe)" au nom du joueur s'il est identique au nom de l'équipe.
 joueursÉquipes <- merge(joueurs, équipes, by = "NoÉquipe") %>%
-  select(NoÉquipe, NoJoueur, NomÉquipe, PrénomJoueur, NomJoueur) %>%
-  mutate(
-    NomComplet = ifelse(NomJoueur == NomÉquipe, paste(NomJoueur, "(Équipe)", sep = " "), paste(PrénomJoueur, NomJoueur, sep = " "))
-  ) #%>%
+  select(NoÉquipe, NoJoueur, NomÉquipe, PrénomJoueur, NomJoueur)
+   #%>%
   #filter(NomJoueur != NomÉquipe)  # Pour enlever les équipes du classement
 
 # Agrège les points par équipe et joueur, puis ordonne par NoJoueur.
@@ -38,30 +36,95 @@ PJ <- RépondantsParJoueurs %>%
 compteurs <- merge(compteurs, PJ) %>%
   mutate(PointsParPJ = round(Points / PJ, 2))
 
+# Préparation JOUEURS
+  CompteursJoueurs <- filter(compteurs, NomJoueur != NomÉquipe) %>%  # Pour enlever les équipes du classement
+    mutate(NomComplet =  paste(PrénomJoueur, NomJoueur, sep = " ")) %>% 
+    select("NomComplet","NomÉquipe", "PJ", "Points", "PointsParPJ")
+  
+  
+  # Trie les données par ordre décroissant de PointsParPJ et attribue des positions aux joueurs en cas d'égalité.
+  CompteursJoueurs <- CompteursJoueurs %>%
+    # ajout du champs pour trier par PointsParPJ + Points 
+    mutate(ConcatenationPts = as.numeric(sprintf("%.4f", PointsParPJ + Points/10000))) %>%  
+    #Création de la position en fontion de PointsParPJ + Points
+    mutate(Position = rank(desc(ConcatenationPts), ties.method = "min")) %>% 
+    select(Position,NomComplet, NomÉquipe, PJ, Points, PointsParPJ) %>% # Sélection des champs
+    arrange(Position) # Tri par desc PointsParPJ puis desc Points.
 
-# Trie les données par ordre décroissant de PointsParPJ et attribue des positions aux joueurs en cas d'égalité.
-compteurs <- compteurs %>%
-  mutate(ConcatenationPts = as.numeric(sprintf("%.4f", PointsParPJ + Points/10000))) %>%  # ajout du champs pour trier par PointsParPJ + Points 
-  mutate(Position = rank(desc(ConcatenationPts), ties.method = "min")) %>% #Création de la position en fontion de PointsParPJ + Points
-  select(Position,NomComplet, NomÉquipe, PJ, Points, PointsParPJ) %>% # Sélection des champs
-  arrange(Position) # Tri par desc PointsParPJ puis desc Points.
+# Préparation Équipe
+  CompteurÉquipes  <- filter(compteurs, NomJoueur == NomÉquipe) %>%  # Conserve seulement les équipes du classement
+    select("NomÉquipe", "PJ", "Points", "PointsParPJ")
+  
+  CompteurÉquipes <- CompteurÉquipes %>%
+    # ajout du champs pour trier par PointsParPJ + Points 
+    mutate(ConcatenationPts = as.numeric(sprintf("%.4f", PointsParPJ + Points/10000))) %>%  
+    #Création de la position en fontion de PointsParPJ + Points
+    mutate(Position = rank(desc(ConcatenationPts), ties.method = "min")) %>% 
+    select(Position, NomÉquipe, PJ, Points, PointsParPJ) %>% # Sélection des champs
+    arrange(Position) # Tri par desc PointsParPJ puis desc Points.
 
-#TODO Ajouter le reactable. Mettre un détail avec les parties du joueurs.
-# exemple détail possible : nopartie, date, équipe A, ptsA, équipe B, pts B, pts du joueur, % du total de la partie.
-# fusion entre calendrier et RépondantsParJoueurs
+  
+#TODO Mettre un détail avec les parties du joueurs.
+  # exemple détail possible : nopartie, date, équipe A, ptsA, équipe B, pts B, pts du joueur, % du total de la partie.
+  # fusion entre calendrier et RépondantsParJoueurs
 
+ 
+  
+ 
+ 
+```
+
+## Les équipes
+
+```{r}
+ #Affichage Équipes
   reactable(
-    compteurs,
-    bordered = TRUE,
-    highlight = TRUE,
+    CompteurÉquipes,
+    bordered = FALSE,
+    highlight = FALSE,
     pagination = FALSE,
     defaultColDef = colDef(
-      header = function(value) gsub(".", " ", value, fixed = TRUE),
       cell = function(value) format(value, nsmall = 0),
       align = "center",
       #cell = function(value) format(value, nsmall = 0),
       maxWidth = 60,
       headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      "Position" = colDef(name="Pos",
+                          maxWidth =  50,
+                          align="center"),
+      "NomÉquipe" =  colDef(name = "Équipe", 
+                            maxWidth =200,
+                            align = "left") ,
+      "PJ" =  colDef(name = "PJ",
+                         maxWidth =50,
+                       align = "center") , 
+                      cellStyle = function(value) list(border = "1px solid black"),
+      "Points" =  colDef(name = "Pts",
+                       maxWidth =50,
+                       align = "center",
+                       cell = function(value) format(value, nsmall = 0)),
+      "PointsParPJ" =  colDef(name = "Pts/PJ",
+                       maxWidth =70,
+                       align = "center",
+                       header = function(value) htmltools::strong(htmltools::em("Pts")),
+                       cell = function(value) htmltools::strong(format(value, nsmall = 2)))
+  ))
+```
+
+## Les joueurs
+
+```{r}
+ #Affichage Joueurs
+  reactable(CompteursJoueurs,
+    bordered = TRUE,
+    highlight = TRUE,
+    pagination = FALSE,
+    defaultColDef = colDef(
+      cell = function(value) format(value, nsmall = 0),
+      align = "center",
+      headerStyle = list(background = "#f7f7f8")      
     ),
     columns = list(
       "Position" = colDef(name="Pos",
@@ -84,9 +147,9 @@ compteurs <- compteurs %>%
       "PointsParPJ" =  colDef(name = "Pts/PJ",
                        maxWidth =70,
                        align = "center",
-                       cell = function(value) format(value, nsmall =2)),
-                       header = function(value) htmltools::strong(htmltools::em("Pts")),
-                       cell = function(value) htmltools::strong(format(value, nsmall = 0)))
+                       #cell = function(value) format(value, nsmall =2)),
+                       #header = function(value) htmltools::strong(htmltools::em("Pts")),
+                       cell = function(value) htmltools::strong(format(value, nsmall = 2)))
   )
- 
+  )
 ```

@@ -37,8 +37,8 @@ execute:
 
 # Définition des variables
   écartPoints <- 40
-  répertoire_données <- "F:/Users/MM/Documents/Git/Quarto/"
-  répertoire_code <- "F:/Users/MM/Documents/Git/Quarto/"
+  répertoire_données <- "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/"
+  répertoire_code <- "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/"
 
   setwd(répertoire_code)
 

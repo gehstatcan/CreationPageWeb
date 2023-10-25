@@ -8,6 +8,8 @@ Ceci est la page index.qmd
 
 Documentation de Quarto <https://quarto.org/docs/websites>.
 
+Vous voyez une erreur sur le site, contactez moi :  {{< var email.support >}}.
+
 ```{r}
  
 ```

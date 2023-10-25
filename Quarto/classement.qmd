@@ -135,7 +135,7 @@ execute:
                             maxWidth =60,
                             align = "center") ,
       "Contre" =  colDef(name = "Contre",
-                         maxWidth =65,
+                         maxWidth =70,
                        align = "center") , 
                       cellStyle = function(value) list(border = "1px solid black"),
       "Diff" =  colDef(name = "Diff",

@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: _site/Saison22
+  output-dir: Saison22
 
 website:
   title: "GEH Statcan"
