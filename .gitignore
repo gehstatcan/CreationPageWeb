@@ -38,6 +38,7 @@ _html_*
 *.docx
 *.pdf
 *.csv
+/Saison22/*
 
 # Logs, reports, or temporary files:
 *.log
