@@ -1,0 +1,30 @@
+---
+format: html
+editor: visual
+execute:
+  echo: false
+---
+
+{{< include _initialisation.qmd >}}
+
+```{r Liens,echo=FALSE,warning=FALSE,message=FALSE}
+#Création des liens vers les gabarits
+lien_Gabarit1<- paste(lien_saison,"Gabarit saison 22 - Questionnaire 1.xlsx",sep="/")
+lien_Gabarit2<- paste(lien_saison,"Gabarit saison 22 - Questionnaire 2.xlsx",sep="/")
+lien_Gabarit3<- paste(lien_saison,"Gabarit saison 22 - Questionnaire 3.xlsx",sep="/")
+
+```
+
+## Documentation {{< var saison >}} <!--#  -->
+
+### Gabarits
+<!--# Le format pour URL avec variable est : `r lien_Gabarit2`
+Passer en mode Visual les détruits...-->
+-   [Questionnaire 1](`r lien_Gabarit1`) (parties du 18 octobre au 13 décembre)
+
+-   [Questionnaire 2](`r lien_Gabarit2`) (parties du 10 janvier au 13 mars) 
+
+-   [Questionnaire 3](`r lien_Gabarit3`) (parties arpès le 13 mars)
+
+
+

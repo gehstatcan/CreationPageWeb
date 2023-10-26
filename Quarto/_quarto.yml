@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: Saison22
+  output-dir: "sitewebracine/Quarto/saison22/SaisonReg"
 
 website:
   title: "GEH Statcan"
@@ -12,9 +12,9 @@ website:
         text: "Classement"
       - href: compteurs.qmd
         text: "Compteurs"
-      - href: calendrier.qmd
+      - href: documentation.qmd
         text: "Documentation"
-      - href: calendrier.qmd
+      - href: saisonPrécédentes.qmd
         text: "Saisons Précédentes"
 format:
   html:
@@ -33,9 +33,4 @@ preprocess:
   - name: read_data
     commands:
       - R code: |
-          library(dplyr)
-          répertoire_données <- "F:/Users/MM/Documents/Git/Quarto/"
-          # Construction des noms de fichiers à charger (les tables)
-          file_path_équipes <- paste0(répertoire_données, "tblEquipes.csv")
-          # Lecture des CSV (tables)
-          équipes <- read.csv(file_path_équipes, header = TRUE, sep = ",") %>% arrange(NoÉquipe)
+

@@ -22,7 +22,7 @@ calendrierDetailJoueurs <- calendrierDetailJoueurs[,c("NoPartie", "PrénomJoueur
 calendrierDetailJoueurs <- calendrierDetailJoueurs %>% 
   arrange(NoPartie, desc(Points)) %>% 
   mutate(
-    NomComplet = ifelse(NomJoueur == NomÉquipe, paste(PrénomJoueur, NomJoueur, "(Équipe)", sep = " "), paste(PrénomJoueur, NomJoueur, sep = " "))
+    NomComplet = ifelse(NomJoueur == NomÉquipe, paste(NomJoueur, "(Équipe)", sep = " "), paste(PrénomJoueur, NomJoueur, sep = " "))
   ) %>% 
   select(NoPartie ,NomComplet,NomÉquipe,Points)
 
@@ -49,14 +49,25 @@ AnimateurConsole <- colDef(
 )
 
 
+
 #Création du lien vers le questionnaire
 LienQuestionnaire <- colDef(
   name = "Questionnaire",
   cell = function(value, index, column_name) {
     # Obtenez l'URL correspondant dans la colonne "URL"
     #url <- paste0("../../Questionnaires/match",calendrier[index, "NoQuestionnaire"],".htm")
-     url2 <- paste0("../../Questionnaires/match",calendrier[index, "NoQuestionnaire"],".htm")
+    #url2 <- paste0("../../../Saison22/SaisonReg/Questionnaires/match",calendrier[index, "NoQuestionnaire"],".htm")
+    url2 <- paste0(lien_questionnaire,"match",calendrier[index, "NoQuestionnaire"],".htm")
+
     
+     
+     #3993/Saison22/SaisonReg/Questionnaires/match1.htm
+     #3993/calendrier.html
+
+     #BUT:
+     #F:\Users\MM\Documents\Git\CreationPageWeb\Quarto\sitewebracine\Saison22\SaisonReg\Questionnaires
+     #F:\Users\MM\Documents\Git\CreationPageWeb\Quarto\sitewebracine\Quarto\saison22\SaisonReg\calendrier.html
+              
     # Renvoyez le HTML du lien
     # htmltools::HTML(link)
     htmltools::tags$a(href = url2, target = "_blank", value)
@@ -128,7 +139,7 @@ reactable(
                                columns = list(
                                  # "NoPartie" = colDef(name = "#", maxWidth =  40),
                                  "NomComplet" = colDef(name = "Joueur", maxWidth =  270),
-                                 "NomÉquipe" = colDef(name = "Équipe", maxWidth =  200),
+                                 "NomÉquipe" = colDef(name = "Équipe", maxWidth =  250),
                                  "Points" = colDef(name = "Pts", maxWidth =  50)
                                )
                                )
@@ -138,5 +149,6 @@ reactable(
     }
   }
 )
+
 
 ```

@@ -1,4 +1,14 @@
+#Changer en début de saison
 saison: "2023-2024"
+repertoireSaison: "Saison22"
+
+#les répertoires
+répertoire_données: "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/" #avec les CSV
+
+
+#Change peu fréquement
+URLsiteGEH: "https://gehstatcan.github.io"
+écartPoints: 40
 
 email:
   support: martin.sirois70@gmail.com

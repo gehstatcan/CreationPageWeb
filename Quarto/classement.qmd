@@ -126,7 +126,7 @@ execute:
     ),
     columns = list(
       "Position" = colDef(name="Pos",
-                          maxWidth =  40,
+                          maxWidth =  45,
                           align="center"),
       "NomÉquipe" =  colDef(name = "Équipe", 
                             maxWidth =270,
@@ -164,3 +164,10 @@ execute:
   
 
 ```
+
+-   G : Victoire par plus de 40 pts. (4 pts)
+-   GP: Victoire par 40 pts ou moins. (3 pts)
+-   PN: Partie Nulle. (2 pts)
+-   PP: Défaite par 40 pts ou moins. (1 pts)
+-   P : Défaite par plus de 40 pts. (0 pt)
+-   \% : C'est le pourcentage des points acquis sur les points possibles

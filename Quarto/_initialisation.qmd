@@ -34,11 +34,27 @@ execute:
     install.packages("tidyr")
   }
   library("tidyr")
+  if (!require("quarto", character.only = TRUE)) {
+    # If tidyr is not installed, install it
+    install.packages("quarto")
+  }
+  library("quarto")
 
-# Définition des variables
-  écartPoints <- 40
-  répertoire_données <- "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/"
+
+  # Charger les variables depuis le fichier _variables.yml. C'est là qu'il faut configurer la saison
+  variables <- yaml::read_yaml("_variables.yml")
+
+  # Définition des variables. Les variable sont dans _variables.yml
+  écartPoints <- variables$écartPoints
+  répertoire_données <-  variables$répertoire_données
+  
   répertoire_code <- "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/"
+  lienURLSiteGEH <- variables$URLsiteGEH #Pointe à la racine
+  lien_saison <-  paste(lienURLSiteGEH, variables$repertoireSaison,sep = "/") #ex: https://gehstatcan.github.io/Saison22
+  lien_questionnaire <- paste(lien_saison,"SaisonReg/Questionnaires/",sep = "/") # Pointe vers les questionnaires
+
+# Utiliser les variables
+cat("La valeur de variable1 est", écartPoints, "\n")
 
   setwd(répertoire_code)
 

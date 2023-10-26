@@ -19,5 +19,47 @@
     "title": "GEH Statcan",
     "section": "Les joueurs",
     "text": "Les joueurs"
+  },
+  {
+    "objectID": "classement.html",
+    "href": "classement.html",
+    "title": "GEH Statcan",
+    "section": "",
+    "text": "G : Victoire par plus de 40 pts. (4 pts)\nGP: Victoire par 40 pts ou moins. (3 pts)\nPN: Partie Nulle. (2 pts)\nPP: Défaite par 40 pts ou moins. (1 pts)\nP : Défaite par plus de 40 pts. (0 pt)\n% : C’est le pourcentage des points acquis sur les points possibles"
+  },
+  {
+    "objectID": "classement.html#classement-var-saison",
+    "href": "classement.html#classement-var-saison",
+    "title": "GEH Statcan",
+    "section": "",
+    "text": "G : Victoire par plus de 40 pts. (4 pts)\nGP: Victoire par 40 pts ou moins. (3 pts)\nPN: Partie Nulle. (2 pts)\nPP: Défaite par 40 pts ou moins. (1 pts)\nP : Défaite par plus de 40 pts. (0 pt)\n% : C’est le pourcentage des points acquis sur les points possibles"
+  },
+  {
+    "objectID": "saisonPrécédentes.html",
+    "href": "saisonPrécédentes.html",
+    "title": "GEH Statcan",
+    "section": "",
+    "text": "À venir…"
+  },
+  {
+    "objectID": "saisonPrécédentes.html#saison-précédentes",
+    "href": "saisonPrécédentes.html#saison-précédentes",
+    "title": "GEH Statcan",
+    "section": "",
+    "text": "À venir…"
+  },
+  {
+    "objectID": "documentation.html",
+    "href": "documentation.html",
+    "title": "GEH Statcan",
+    "section": "",
+    "text": "À venir…"
+  },
+  {
+    "objectID": "documentation.html#documentation-var-saison",
+    "href": "documentation.html#documentation-var-saison",
+    "title": "GEH Statcan",
+    "section": "",
+    "text": "À venir…"
   }
 ]
