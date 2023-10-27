@@ -108,7 +108,6 @@ compteurs <- merge(compteurs, PJ) %>%
       "PointsParPJ" =  colDef(name = "Pts/PJ",
                        maxWidth =70,
                        align = "center",
-                       header = function(value) htmltools::strong(htmltools::em("Pts")),
                        cell = function(value) htmltools::strong(format(value, nsmall = 2)))
   ))
 ```

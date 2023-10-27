@@ -5,6 +5,8 @@ execute:
   echo: false
 ---
 
+<!--# IMPORTANT ne pas utiliser le mode Visual, ça brise les liens  -->
+
 {{< include _initialisation.qmd >}}
 
 ```{r Liens,echo=FALSE,warning=FALSE,message=FALSE}
@@ -12,7 +14,11 @@ execute:
 lien_Gabarit1<- paste(lien_saison,"Gabarit saison 22 - Questionnaire 1.xlsx",sep="/")
 lien_Gabarit2<- paste(lien_saison,"Gabarit saison 22 - Questionnaire 2.xlsx",sep="/")
 lien_Gabarit3<- paste(lien_saison,"Gabarit saison 22 - Questionnaire 3.xlsx",sep="/")
+lien_PlanQuestionnaire<- paste(lien_saison,"Plan du questionnaire.doc",sep="/")
+lien_Faiseur <- paste(lienURLSiteGEH,"Documentation","Guide faiseur de questions.doc",sep="/")
+lien_Règlements <- paste(lienURLSiteGEH,"Documentation","Règlements.doc",sep="/")
 
+  
 ```
 
 ## Documentation {{< var saison >}} <!--#  -->
@@ -27,4 +33,21 @@ Passer en mode Visual les détruits...-->
 -   [Questionnaire 3](`r lien_Gabarit3`) (parties arpès le 13 mars)
 
 
+### [Plan du questionnaire](`r lien_PlanQuestionnaire`)
+  Mis à jour le 31 août 2023
 
+### [Guide du petit faiseur de questions](`r lien_Faiseur`)
+  Mis à jour - août 2016
+
+### [Règlements](`r lien_Règlements`)
+  Mis à jour le 31 août 2023
+  
+### [Instructions - Joueurs](https://gehstatcan.github.io/Documentation/Instructions%20-%20Lecteurs.htm)
+### [Instructions - Animateur](https://gehstatcan.github.io/Documentation/Instructions%20-%20Joueurs.htm)
+
+
+### À venir
+#### Instructions pour la saisie des points
+#### Instructions pour la mise à jour du site
+
+## [Procès verbaux](procesverbaux.html)

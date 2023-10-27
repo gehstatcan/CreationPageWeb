@@ -47,8 +47,8 @@ execute:
   # Définition des variables. Les variable sont dans _variables.yml
   écartPoints <- variables$écartPoints
   répertoire_données <-  variables$répertoire_données
+  répertoire_code <-  variables$répertoire_code
   
-  répertoire_code <- "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/"
   lienURLSiteGEH <- variables$URLsiteGEH #Pointe à la racine
   lien_saison <-  paste(lienURLSiteGEH, variables$repertoireSaison,sep = "/") #ex: https://gehstatcan.github.io/Saison22
   lien_questionnaire <- paste(lien_saison,"SaisonReg/Questionnaires/",sep = "/") # Pointe vers les questionnaires

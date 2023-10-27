@@ -5,6 +5,56 @@ execute:
   echo: false
 ---
 
-## Saison précédentes
+# Ligue de Génies en herbe de Statistique Canada
+
+## Archives des saisons précédentes
+
+Dernière mise à jour : 5 septembre 2023
+
+## [Les champions du passé...](https://gehstatcan.github.io/Trophées.htm)
+
+## [Saison #21 (2022-2023)](https://gehstatcan.github.io/Saison21/SaisonReg/Default.htm)
+
+## [Saison #20 (2021-2022)](https://gehstatcan.github.io/Saison20/SaisonReg/Default.htm)
+
+## [Saison #19 (2020-2021) - COVID](https://gehstatcan.github.io/Saison19/SaisonReg/Default.htm)
 
 À venir...
+
+Présentement seulement disponible sur l'intranet (les liens ne foncitonnent pas)
+
+## [Saison #18 (2019-2020)](saison18/SaisonRégulière/Default.htm)
+
+## [Saison #17 (2018-2019)](saison17/SaisonRégulière/Default.htm)
+
+## [Saison #16 (2017-2018)](saison16/SaisonRégulière/Default.htm)
+
+## [Saison #15 (2016-2017)](saison15/SaisonRégulière/Default.htm)
+
+## [Saison #14 (2015-2016)](saison14/SaisonRégulière/Default.htm)
+
+## [Saison #13 (2014-2015)](saison13/SaisonRégulière/Default.htm)
+
+## [Saison #12 (2013-2014)](saison12/Default.htm)
+
+## [Saison #11 (2012-2013)](saison11/Default.htm)
+
+## [Saison #10 (2011-2012)](saison10/Default.htm)
+
+## [Saison #9 (2010-2011)](saison9/SaisonRégulière/Default.htm)
+
+## [Saison #8 (2009-2010)](saison8/SaisonRégulière/Default.htm)
+
+## [Saison #7 (2008-2009)](saison7/SaisonRégulière/Default.htm)
+
+## [Saison #6 (2007-2008)](saison6/SaisonRégulière/Default.htm)
+
+## [Saison #5 (2006-2007)](saison5/Default.htm)
+
+## [Saison #4 (2005-2006)](saison4/Default.htm)
+
+## [Saison #3 (2004-2005)](saison3/Default.htm)
+
+## [Saison #2 (2003-2004)](saison2/geh.htm)
+
+## [Saison #1 (2003)](saison1/Saison%201.htm)

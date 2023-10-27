@@ -1,12 +1,13 @@
-#Changer en début de saison
+# Changer en début de saison
 saison: "2023-2024"
 repertoireSaison: "Saison22"
 
-#les répertoires
+# les répertoires
 répertoire_données: "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/" #avec les CSV
+répertoire_code: "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/" # à envoyer sur https://github.com/gehstatcan/CreationPageWeb
 
 
-#Change peu fréquement
+# Change peu fréquement
 URLsiteGEH: "https://gehstatcan.github.io"
 écartPoints: 40
 

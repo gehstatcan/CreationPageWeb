@@ -6,7 +6,7 @@ website:
   title: "GEH Statcan"
   navbar:
     left:
-      - href: calendrier.qmd
+      - href: index.qmd
         text: "Calendrier"
       - href: classement.qmd
         text: "Classement"
@@ -29,8 +29,4 @@ format:
 
 editor: visual
 
-preprocess:
-  - name: read_data
-    commands:
-      - R code: |
 
