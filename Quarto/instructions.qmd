@@ -1,0 +1,29 @@
+---
+title: "instructions"
+---
+
+Mise à jours des pages
+
+-   pull de github
+
+-   saisie des chiffres dans tblRépondantsParJoueurs.csv
+
+-   faire un "Render" du site.
+
+-   Envoyer les fichiers du répertoire output-dir: dans le fichier \_quarto.yml vers <https://github.com/gehstatcan/gehstatcan.github.io> ("sitewebracine/Quarto/saison22/SaisonReg")
+
+    -   Moi, j'utilise GitKraken, donc, je copie de output-dir vers mon répertoire lié à GitKraken
+
+Note: Je veux revoir la structure des répertoire. Par exemple, ce fichier devrait être dans "racine/documentation" et non "/Saison22"!
+
+Note: Il n'y a plus de base de données access. Les tables ont été converties en fichier CSV.
+
+4 CSV requis:
+
+-   tblÉquipes.csv
+
+-   tblJoueurs.csv
+
+-   tblParties.csv
+
+-   tblRépondantsParJoueurs.csv

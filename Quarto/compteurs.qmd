@@ -3,7 +3,7 @@ execute:
   echo: false
 ---
 
-## Compteurs {{< var saison >}}
+# Compteurs {{< var saison >}}
 
 {{< include _lectureCSV.qmd >}}
 
@@ -152,3 +152,5 @@ compteurs <- merge(compteurs, PJ) %>%
   )
   )
 ```
+
+Vous voyez une erreur : [{{< var email.support >}}](mailto:%7B%7B%3C%20var%20email.support%20%3E%7D%7D)

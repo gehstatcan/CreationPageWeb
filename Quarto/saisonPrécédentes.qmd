@@ -5,9 +5,7 @@ execute:
   echo: false
 ---
 
-# Ligue de Génies en herbe de Statistique Canada
-
-## Archives des saisons précédentes
+# Archives des saisons précédentes
 
 Dernière mise à jour : 5 septembre 2023
 

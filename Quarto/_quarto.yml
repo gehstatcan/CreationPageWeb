@@ -16,6 +16,8 @@ website:
         text: "Documentation"
       - href: saisonPrécédentes.qmd
         text: "Saisons Précédentes"
+      - href: apropos.qmd
+        text: "À propos"
 format:
   html:
     theme: Lumen

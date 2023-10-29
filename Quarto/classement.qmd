@@ -171,3 +171,5 @@ execute:
 -   PP: Défaite par 40 pts ou moins. (1 pts)
 -   P : Défaite par plus de 40 pts. (0 pt)
 -   \% : C'est le pourcentage des points acquis sur les points possibles
+
+*Vous voyez une erreur :* [{{< var email.support >}}](mailto:%7B%7B%3C%20var%20email.support%20%3E%7D%7D)

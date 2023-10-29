@@ -1,15 +1,14 @@
 ---
-title: "Calendrier"
+title: ""
 format: html
 editor: visual
 execute:
   echo: false
 ---
 
-## Calendrier {{< var saison >}}
+# Calendrier {{< var saison >}}
 
 {{< include _lectureCSV.qmd >}}
-
 ```{r calendrier,echo=FALSE,warning=FALSE,message=FALSE}
 #, warning=TRUE,message=TRUE,results='hide'
 
@@ -33,49 +32,39 @@ calendrier <- left_join(calendrier, équipes, by = c("NoÉquipeQuestionnaire" = 
 
 # Création d'une colonne pour combiner l'animateur et le lien de la console.
 AnimateurConsole <- colDef(
-  name = "Animateur (lien vers la console)",
+  name = "Animateur (lien console)",
   cell = function(value, index, column_name) {
-    # Obtenez l'URL correspondant dans la colonne "URL"
+    # Création de l'URL.
     url <- calendrier[index, "LienConsole"]
-    
-    # Créez un lien hypertexte avec le texte de la colonne "Texte"
-    #link <- paste0('<a href="', url, '" target="_blank">', value, '</a>')
-    
-    # Renvoyez le HTML du lien
-    # htmltools::HTML(link)
+    # Création du texte html.
     htmltools::tags$a(href = url, target = "_blank", value)
   }
 )
-
-
 
 #Création du lien vers le questionnaire
 LienQuestionnaire <- colDef(
   name = "Questionnaire",
   cell = function(value, index, column_name) {
-    # Obtenez l'URL correspondant dans la colonne "URL"
-    #url <- paste0("../../Questionnaires/match",calendrier[index, "NoQuestionnaire"],".htm")
-    #url2 <- paste0("../../../Saison22/SaisonReg/Questionnaires/match",calendrier[index, "NoQuestionnaire"],".htm")
     url2 <- paste0(lien_questionnaire,"match",calendrier[index, "NoQuestionnaire"],".htm")
-    
-    # Renvoyez le HTML du lien
-    # htmltools::HTML(link)
     htmltools::tags$a(href = url2, target = "_blank", value)
   }
 )
 
 
 #Ordre et sélection des colonnes
-NomColonneAExclure <- c("LienConsole","NoQuestionnaire")
-calendrier <- calendrier %>%
-  select("NoPartie", "Date", "NomÉquipeA","PointsA", "NomÉquipeB", "PointsB","NomÉquipeQuestionnaire", "NomAnimateur", "LienReunion", "LienBouton","NoQuestionnaire","LienConsole")
+  #Il faut enlver les colonnes utilisé pour les URL
+  NomColonneAExclure <- c("LienConsole","NoQuestionnaire")
+  calendrier <- calendrier %>%
+    select("NoPartie", "Date", "NomÉquipeA","PointsA", "NomÉquipeB", "PointsB","NomÉquipeQuestionnaire", "NomAnimateur", "LienReunion", "LienBouton","NoQuestionnaire","LienConsole")
 
+#Tableau principal
 reactable(
   #Il faut enlver les colonnes utilisé pour les URL
   calendrier[, !(names(calendrier) %in% NomColonneAExclure)], #exclusion de la colonne LienConsole
 
   bordered = FALSE,
-  highlight = FALSE,
+  highlight = TRUE,
+  striped = TRUE,
   pagination = FALSE,
   searchable = TRUE,
   
@@ -83,9 +72,8 @@ reactable(
   defaultColDef = colDef(
     # cell = function(value) format(value, nsmall = 1),
     align = "left",
-    minWidth = 20
-    #,
-    #headerStyle = list(background = "#f7f7f8")
+    minWidth = 20,
+    headerStyle = list(background = "#f7f7f8")
   ),
   columns = list(
     # overrides the default
@@ -120,7 +108,6 @@ reactable(
                                     #format(value, nsmall = 2)
                                   }
                                 }
-
                          #cell = function(value) htmltools::strong(format(value, nsmall = 2))
                          ),
     NomÉquipeQuestionnaire = LienQuestionnaire,
@@ -169,5 +156,6 @@ reactable(
   }
 )
 
-
 ```
+
+Vous voyez une erreur : [{{< var email.support >}}](mailto:{{< var email.support >}})

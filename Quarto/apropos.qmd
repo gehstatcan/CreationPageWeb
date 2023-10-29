@@ -1,0 +1,11 @@
+---
+title: "À propos"
+---
+
+# Ligue de génies en herbe de Statistique Canada (GEH Statcan)
+
+Site créé avec [Quarto](https://quarto.org/) en intégrant des tableaux R avec la package reactable. 
+
+Des questions, des erreurs sur le site : [{{< var email.support >}}](mailto:{{< var email.support >}}).
+
+Création du site : octobre 2023
