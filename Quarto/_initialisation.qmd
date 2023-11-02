@@ -53,20 +53,19 @@ execute:
   lien_saison <-  paste(lienURLSiteGEH, variables$repertoireSaison,sep = "/") #ex: https://gehstatcan.github.io/Saison22
   lien_questionnaire <- paste(lien_saison,"SaisonReg/Questionnaires/",sep = "/") # Pointe vers les questionnaires
 
-# Utiliser les variables
-cat("La valeur de variable1 est", écartPoints, "\n")
+  # Utiliser les variables
+  #cat("La valeur de variable1 est", écartPoints, "\n")
 
   setwd(répertoire_code)
 
 # Set the time zone to your desired value
   Sys.setenv(TZ = "Canada/Eastern")
-  Sys.getenv("TZ")
 
 # Construction des noms de fichiers à charger (les tables)
-  file_path_équipes <- paste0(répertoire_données, "tblÉquipes.csv")
-  file_path_parties <- paste0(répertoire_données, "tblParties.csv")
-  file_path_joueurs <- paste0(répertoire_données, "tblJoueurs.csv")
-  file_path_RépondantsParJoueurs <- paste0(répertoire_données, "tblRépondantsParJoueurs.csv")
+  file_path_équipes <- paste0(répertoire_données, "/tblÉquipes.csv")
+  file_path_parties <- paste0(répertoire_données, "/tblParties.csv")
+  file_path_joueurs <- paste0(répertoire_données, "/tblJoueurs.csv")
+  file_path_RépondantsParJoueurs <- paste0(répertoire_données, "/tblRépondantsParJoueurs.csv")
 
 
 ### Main fin

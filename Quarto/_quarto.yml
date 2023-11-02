@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: "sitewebracine/Quarto/saison22/SaisonReg"
+  output-dir: "sitewebracine/saison22/SaisonReg"
 
 website:
   title: "GEH Statcan"
@@ -8,15 +8,15 @@ website:
     left:
       - href: index.qmd
         text: "Calendrier"
-      - href: classement.qmd
+      - href: p2classement.qmd
         text: "Classement"
-      - href: compteurs.qmd
+      - href: p3compteurs.qmd
         text: "Compteurs"
-      - href: documentation.qmd
+      - href: p4documentation.qmd
         text: "Documentation"
-      - href: saisonPrécédentes.qmd
+      - href: p5saisonPrécédentes.qmd
         text: "Saisons Précédentes"
-      - href: apropos.qmd
+      - href: p9apropos.qmd
         text: "À propos"
 format:
   html:
@@ -30,5 +30,6 @@ format:
       gutter-width: 1.5rem    
 
 editor: visual
+
 
 

@@ -4,11 +4,29 @@ title: "instructions"
 
 Mise à jours des pages
 
--   pull de github
+-   pull de [github](https://github.com/gehstatcan/gehstatcan.github.io) (<https://github.com/gehstatcan/gehstatcan.github.io>)
 
--   saisie des chiffres dans tblRépondantsParJoueurs.csv
+-   Il faut les fichiers CSV suivant dans C:/GIT/gehstatcan.github.io
 
--   faire un "Render" du site.
+    -   tblParties.csv
+
+    -   tblÉquipes.csv
+
+    -   tblJoueurs.csv
+
+    -   tblRépondantsParJoueurs
+
+-   Ajouter les points de la partie dans tblRépondantsParJoueurs. Habituellement 10 lignes. Le fichier Saisie des points.xlsx (Excel 365 seulement) peut aider pour cette tâche .
+
+-   pull de <https://github.com/gehstatcan/CreationPageWeb>
+
+-   Ouvrir le projet R **GEHStatcanQMD.Rproj**
+
+-   faire un "Render" du site. menu Build\|Render Web s
+
+-   Copier le contenu de \\sitewebracine\\Saison22\\SaisonReg vers C:\\GIT\\gehstatcan.github.io\\Saison22\\SaisonReg
+
+-   
 
 -   Envoyer les fichiers du répertoire output-dir: dans le fichier \_quarto.yml vers <https://github.com/gehstatcan/gehstatcan.github.io> ("sitewebracine/Quarto/saison22/SaisonReg")
 

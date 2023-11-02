@@ -3,7 +3,7 @@ saison: "2023-2024"
 repertoireSaison: "Saison22"
 
 # les répertoires
-répertoire_données: "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/" #avec les CSV
+répertoire_données: "C:/GIT/gehstatcan.github.io/Saison22/DonnéesCSV" #avec les CSV
 répertoire_code: "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/" # à envoyer sur https://github.com/gehstatcan/CreationPageWeb
 
 

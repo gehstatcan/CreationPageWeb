@@ -45,7 +45,7 @@ AnimateurConsole <- colDef(
 LienQuestionnaire <- colDef(
   name = "Questionnaire",
   cell = function(value, index, column_name) {
-    url2 <- paste0(lien_questionnaire,"match",calendrier[index, "NoQuestionnaire"],".htm")
+    url2 <- paste0(lien_questionnaire,"match",calendrier[index, "NoPartie"],".htm")
     htmltools::tags$a(href = url2, target = "_blank", value)
   }
 )
