@@ -5,7 +5,7 @@ execute:
   echo: false
 ---
 
-# Archives des saisons précédentes
+## Archives des saisons précédentes
 
 Dernière mise à jour : 5 septembre 2023
 

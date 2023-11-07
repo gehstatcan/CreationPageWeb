@@ -81,8 +81,13 @@ compteurs <- merge(compteurs, PJ) %>%
   reactable(
     CompteurÉquipes,
     bordered = FALSE,
-    highlight = FALSE,
+    highlight = TRUE,
     pagination = FALSE,
+    
+    theme = reactableTheme(
+      cellPadding = "2px 5px",
+      ),    
+    
     defaultColDef = colDef(
       cell = function(value) format(value, nsmall = 0),
       align = "center",
@@ -115,42 +120,88 @@ compteurs <- merge(compteurs, PJ) %>%
 ## Les joueurs
 
 ```{r}
+
+#Création des points par parties par joueurs par date. Pour le détail des compteurs
+DétailJoueurs <- merge(RépondantsParJoueurs,joueurs, by = c("NoÉquipe", "NoJoueur") )
+DétailJoueurs <- merge(DétailJoueurs,équipes, by = c("NoÉquipe"))
+DétailJoueurs <- merge(DétailJoueurs,calendrier, by = c("NoPartie")) %>% 
+    mutate(
+    NomComplet = ifelse(NomJoueur == NomÉquipe, paste(NomJoueur, "(Équipe)", sep = " "), paste(PrénomJoueur, NomJoueur, sep = " "))
+  ) %>% 
+  select("NoPartie", "NoÉquipe", "NoJoueur","Points", "NomComplet","Date","NomÉquipeA","PointsA", "NomÉquipeB","PointsB") %>% 
+  mutate( PointsTot = PointsA + PointsB, pctJoueur="N/A") %>% 
+  mutate(pctJoueur = round(Points / PointsTot*100,2))
+
  #Affichage Joueurs
-  reactable(CompteursJoueurs,
-    bordered = TRUE,
-    highlight = TRUE,
-    pagination = FALSE,
-    defaultColDef = colDef(
-      cell = function(value) format(value, nsmall = 0),
-      align = "center",
-      headerStyle = list(background = "#f7f7f8")      
-    ),
-    columns = list(
-      "Position" = colDef(name="Pos",
-                          maxWidth =  50,
-                          align="center"),
-      "NomComplet" =  colDef(name = "Joueur", 
-                            maxWidth =270,
-                            align = "left")  ,
-      "NomÉquipe" =  colDef(name = "Équipe", 
-                            maxWidth =250,
-                            align = "left") ,
-      "PJ" =  colDef(name = "PJ",
-                         maxWidth =50,
-                       align = "center") , 
-                      cellStyle = function(value) list(border = "1px solid black"),
-      "Points" =  colDef(name = "Pts",
-                       maxWidth =50,
-                       align = "center",
-                       cell = function(value) format(value, nsmall = 0)),
-      "PointsParPJ" =  colDef(name = "Pts/PJ",
-                       maxWidth =70,
-                       align = "center",
-                       #cell = function(value) format(value, nsmall =2)),
-                       #header = function(value) htmltools::strong(htmltools::em("Pts")),
-                       cell = function(value) htmltools::strong(format(value, nsmall = 2)))
-  )
-  )
+
+NomColonneAExclure <- c("NoPartie","NoJoueur","NoÉquipe","NomComplet")
+DétailJoueurs <- DétailJoueurs %>%
+  select( "Date", "NomComplet","NomÉquipeA","PointsA","PointsB", "NomÉquipeB", "Points","PointsTot","pctJoueur")
+
+reactable(CompteursJoueurs,
+          bordered = FALSE,
+          highlight = TRUE,
+          pagination = FALSE,
+          searchable = TRUE,
+          
+          theme = reactableTheme(
+            cellPadding = "2px 5px",
+            searchInputStyle = list(width = "100%")      
+            ),        
+          
+          defaultColDef = colDef(
+            align = "center",
+            headerStyle = list(background = "#f7f7f8")      
+          ),
+          columns = list(
+            "Position"    = colDef(name = "Pos",   maxWidth =50,  align = "center"),
+            "NomComplet"  = colDef(name = "Joueur",maxWidth =270, align = "left"),
+            "NomÉquipe"   = colDef(name = "Équipe",maxWidth =250, align = "left"),
+            "PJ"          = colDef(name = "PJ",    maxWidth =50,  align = "center"), 
+            "Points"      = colDef(name = "Pts",   maxWidth =50,  align = "center", cell = function(value) format(value, nsmall = 0)),
+            "PointsParPJ" = colDef(name = "Pts/PJ",maxWidth =70,  align = "center", cell = function(value) htmltools::strong(format(value, nsmall = 2)))
+          ),
+          
+          #Détail des parties du joueur
+          details = function(index) {
+            détailJoueurs2 <- DétailJoueurs[DétailJoueurs$NomComplet == CompteursJoueurs$NomComplet[index], ]
+            if (nrow(détailJoueurs2) > 0) {
+              détailJoueurs2 <- détailJoueurs2[, !(names(détailJoueurs2) %in% NomColonneAExclure)]
+              htmltools::div(style = "padding: 1rem",
+                             
+                 reactable(détailJoueurs2,
+                           bordered = FALSE,
+                           highlight = FALSE,
+                           pagination = FALSE,
+                           searchable = FALSE,
+                           outlined = TRUE,
+                           #fullWidth = FALSE,
+                           theme = reactableTheme(
+                               cellPadding = "2px 5px",
+                               ),
+                           #valeurs par défaut pour les colonnes
+                           defaultColDef = colDef(
+                             # cell = function(value) format(value, nsmall = 1),
+                             align = "left",
+                             headerStyle = list(background = "#f7f7f8")
+                             ),
+                           columns = list(
+                             "Date" = colDef(maxWidth =  100),
+                             "NomÉquipeA" = colDef(name = "Équipe A",   maxWidth = 250, align = "right"),
+                             "NomÉquipeB" = colDef(name = "Équipe B",   maxWidth = 250, align = "left"),
+                             "PointsA"    = colDef(name = "Pts",        maxWidth = 50,  align = "left"),
+                             "PointsB"    = colDef(name = "Pts",        maxWidth = 50,  align = "center"),
+                             "Points"     = colDef(name = "Pts joueur", maxWidth = 100, align = "center"),
+                             "PointsTot"  = colDef(name = "Pts A+B",    maxWidth = 100, align = "center"),
+                             "pctJoueur"  = colDef(name = "joueur/A+B",  maxWidth = 100,align = "center")
+                             )
+                     )
+              )
+              } else {
+                     "toto"  # Si aucun détail n'est disponible, renvoyer une chaîne vide
+              }
+            }
+          )
 ```
 
-Vous voyez une erreur : [{{< var email.support >}}](mailto:%7B%7B%3C%20var%20email.support%20%3E%7D%7D)
+*Vous voyez une erreur : [{{< var email.support >}}](mailto:{{< var email.support >}})*
