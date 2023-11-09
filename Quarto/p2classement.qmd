@@ -59,7 +59,7 @@ execute:
              (`3pts` * 3) +
              (`2pts` * 2) +
              `1pt` ) %>%
-    mutate("pctPoints" = ptsTot/(PJ*4)*100)
+    mutate("pctPoints" = round(ptsTot/(PJ*4)*100,0))
   
   #Calcule des pour et contre
     pointsPour <- RépondantsParJoueurs %>%
