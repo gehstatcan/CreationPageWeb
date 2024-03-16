@@ -18,12 +18,10 @@ Création du site : octobre 2023
 # Définir les variables de répertoire
 
 # Chemin d'origine
-source_directory <- file.path(répertoire_code, "sitewebracine", "Saison22", "SaisonReg")
+source_directory <- file.path(répertoire_code, "sitewebracine", "Saison22","SaisonReg")
 
 # Chemin de destination avec recul d'un niveau
 destination_directory <- file.path(dirname(répertoire_données))
-
-
 
 # Copier tout le contenu du répertoire source vers le répertoire de destination
 file.copy(from = source_directory, to = destination_directory, recursive = TRUE, overwrite = TRUE)
