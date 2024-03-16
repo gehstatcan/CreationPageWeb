@@ -1,12 +1,14 @@
 ---
 title: "À propos"
+execute:
+  echo: false
 ---
 
 # Ligue de génies en herbe de Statistique Canada (GEH Statcan)
 
 Site créé avec [Quarto](https://quarto.org/) en intégrant des tableaux R avec la package reactable.
 
-Des questions, des erreurs sur le site : [{{< var email.support >}}](mailto:%7B%7B%3C%20var%20email.support%20%3E%7D%7D).
+*Des questions, des erreurs sur le site :* [{{< var email.support >}}](mailto:%7B%7B%3C%20var%20email.support%20%3E%7D%7D)
 
 Création du site : octobre 2023
 
@@ -19,9 +21,8 @@ Création du site : octobre 2023
 source_directory <- file.path(répertoire_code, "sitewebracine", "Saison22", "SaisonReg")
 
 # Chemin de destination avec recul d'un niveau
-destination_directory <- file.path(répertoire_données, "..", "SaisonReg")
-# Chemin de destination sans ajout de "SaisonReg" supplémentaire
-destination_directory <- file.path(répertoire_données, "..")
+destination_directory <- file.path(dirname(répertoire_données))
+
 
 
 # Copier tout le contenu du répertoire source vers le répertoire de destination
