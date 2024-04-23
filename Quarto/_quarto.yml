@@ -1,17 +1,23 @@
 project:
   type: website
-  output-dir: "sitewebracine/saison22/SaisonReg"
+  output-dir: "sitewebracine/saison22"
 
 website:
   title: "GEH Statcan"
   navbar:
     left:
-      - href: index.qmd
+      - href: p0calendrier.qmd
         text: "Calendrier"
       - href: p2classement.qmd
         text: "Classement"
       - href: p3compteurs.qmd
         text: "Compteurs"
+      - href: p7arbreseries.qmd
+        text: "Arbre des séries"
+      - href: p6calendrierseries.qmd
+        text: "Calendrier-séries"
+      - href: p8compteursseries.qmd
+        text: "Compteurs-séries"        
       - href: p4documentation.qmd
         text: "Documentation"
       - href: p5saisonPrécédentes.qmd

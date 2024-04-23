@@ -66,6 +66,8 @@ execute:
   file_path_parties <- paste0(répertoire_données, "/tblParties.csv")
   file_path_joueurs <- paste0(répertoire_données, "/tblJoueurs.csv")
   file_path_RépondantsParJoueurs <- paste0(répertoire_données, "/tblRépondantsParJoueurs.csv")
+  file_path_parties_series <- paste0(répertoire_données, "/tblParties_series.csv")
+  file_path_RépondantsParJoueurs_series <- paste0(répertoire_données, "/tblRépondantsParJoueurs_series.csv")
 
 
 ### Main fin
