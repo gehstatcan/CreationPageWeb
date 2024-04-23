@@ -22,7 +22,7 @@ execute:
   calendrier <- merge(calendrier, équipes, by.x = "NoÉquipeB", by.y = "NoÉquipe", suffixes = c("A", "B"))
 
 # Ajout des points des équipes
-  ptsParPartieÉquipe <- aggregate(Points ~ NoPartie + NoÉquipe, data = RépondantsParJoueurs[1:369, ], FUN = sum) %>% arrange(NoPartie, NoÉquipe)
+  ptsParPartieÉquipe <- aggregate(Points ~ NoPartie + NoÉquipe, data = RépondantsParJoueurs, FUN = sum) %>% arrange(NoPartie, NoÉquipe)
   calendrier <- merge(calendrier, ptsParPartieÉquipe, by.x = c("NoPartie", "NoÉquipeA"), by.y = c("NoPartie", "NoÉquipe"), all.x = TRUE) %>% rename("PointsA" = "Points")
   calendrier <- merge(calendrier, ptsParPartieÉquipe, by.x = c("NoPartie", "NoÉquipeB"), by.y = c("NoPartie", "NoÉquipe"), all.x = TRUE) %>% 
   rename("PointsB" = "Points") %>%
