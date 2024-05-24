@@ -124,7 +124,7 @@ compteurs <- merge(compteurs, PJ) %>%
 #Création des points par parties par joueurs par date. Pour le détail des compteurs
 DétailJoueurs <- merge(RépondantsParJoueurs_series,joueurs, by = c("NoÉquipe", "NoJoueur") )
 DétailJoueurs <- merge(DétailJoueurs,équipes, by = c("NoÉquipe"))
-DétailJoueurs <- merge(DétailJoueurs,calendrier, by = c("NoPartie")) %>% 
+DétailJoueurs <- merge(DétailJoueurs,calendrier_series, by = c("NoPartie")) %>% 
     mutate(
     NomComplet = ifelse(NomJoueur == NomÉquipe, paste(NomJoueur, "(Équipe)", sep = " "), paste(PrénomJoueur, NomJoueur, sep = " "))
   ) %>% 

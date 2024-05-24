@@ -198,10 +198,10 @@ reactable(CompteursJoueurs,
                      )
               )
               } else {
-                     "toto"  # Si aucun détail n'est disponible, renvoyer une chaîne vide
+                     ""  # Si aucun détail n'est disponible, renvoyer une chaîne vide
               }
             }
           )
 ```
 
-*Vous voyez une erreur : [{{< var email.support >}}](mailto:{{< var email.support >}})*
+*Vous voyez une erreur :* [{{< var email.support >}}](mailto:%7B%7B%3C%20var%20email.support%20%3E%7D%7D)
