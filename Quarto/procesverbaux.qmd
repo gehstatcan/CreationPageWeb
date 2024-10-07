@@ -4,7 +4,7 @@ title: "Procès-verbaux"
 
 ***Membre du Comité décisionnel***
 
--   Julien Bérard-Chagnon, Julie Bernier, Sébastien Landry, Stéphane Martineau, Stéphane Mongeau, Geneviève Ouellet, Pierre Parent, Sylvain Perron, Martin Sirois
+-   Julien Bérard-Chagnon, Julie Bernier, Sébastien Landry, Stéphane Mongeau, Geneviève Ouellet, Pierre Parent, Sylvain Perron, Martin Sirois
 
 **Réunion #1: 29 septembre 2005, JT 11 D à midi - [Procès-verbal](https://gehstatcan.github.io/Documentation/Procès%20verbal%202005-09-29.doc)**
 
@@ -39,3 +39,5 @@ title: "Procès-verbaux"
 **Réunion #16: 13 janvier 2021, MS Teams à midi - [Procès-verbal](https://gehstatcan.github.io/Documentation/Procès%20verbal%202021-01-13.docx)**
 
 **Réunion #17: 25 août 2021, MS Teams à midi - [Procès-verbal](https://gehstatcan.github.io/Documentation/Procès%20verbal%202021-08-25.docx)**
+
+**Réunion #18: septembre 2024, MS Teams à midi - n/a**

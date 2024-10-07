@@ -15,7 +15,11 @@ execute:
   équipes <- read.csv(file_path_équipes, header = TRUE, sep = ",") %>% arrange(NoÉquipe)
   parties <- read.csv(file_path_parties, header = TRUE, sep = ",") %>% arrange(NoPartie)
   joueurs <- read.csv(file_path_joueurs, header = TRUE, sep = ",") %>% arrange(NoÉquipe, NoJoueur)
-  RépondantsParJoueurs <- read.csv(file_path_RépondantsParJoueurs, header = TRUE, sep = ",") %>% arrange(NoPartie, NoÉquipe)
+  
+#Vérification de la présence du fichier tblRépondantsParJoueurs.csv pour vérifier si la saison est commencée
+fichierRépondantsParJoueursPrésent <- file.exists(file_path_RépondantsParJoueurs)  
+if (fichierRépondantsParJoueursPrésent) {
+  RépondantsParJoueurs <- read.csv(file_path_RépondantsParJoueurs, header = TRUE, sep = ",") %>% arrange(NoPartie, NoÉquipe) }
 
 # Calendrier fait ici car requis pour le classement.
   calendrier <- merge(parties, équipes, by.x = "NoÉquipeA", by.y = "NoÉquipe")
@@ -23,13 +27,17 @@ execute:
 
 # Ajout des points des équipes
   # Vérifiez si le dataframe RépondantsParJoueurs a au moins 1 observation
-if (nrow(RépondantsParJoueurs) > 0) {
-  ptsParPartieÉquipe <- aggregate(Points ~ NoPartie + NoÉquipe, data = RépondantsParJoueurs, FUN = sum) %>% arrange(NoPartie, NoÉquipe)
-} else {
-  # Affichez un message d'erreur ou effectuez une autre action appropriée
-  print("Le dataframe RépondantsParJoueurs est vide.")
-}
+if (!fichierRépondantsParJoueursPrésent) {
+  # Créer un RépondantsParJoueurs avec une ligne...
+  # Ajouter une ligne à RépondantsParJoueurs avec les valeurs 0 pour éviter que ça plante.
+RépondantsParJoueurs <- data.frame(NoPartie = 0, NoÉquipe = 0, NoJoueur = 0, Points = 0)
+    print("Une ligne bidon a été ajouté RépondantsParJoueurs.")
   
+} 
+
+ptsParPartieÉquipe <- aggregate(Points ~ NoPartie + NoÉquipe, data = RépondantsParJoueurs, FUN = sum) %>% arrange(NoPartie, NoÉquipe)
+
+    
   calendrier <- merge(calendrier, ptsParPartieÉquipe, by.x = c("NoPartie", "NoÉquipeA"), by.y = c("NoPartie", "NoÉquipe"), all.x = TRUE) %>% rename("PointsA" = "Points")
   calendrier <- merge(calendrier, ptsParPartieÉquipe, by.x = c("NoPartie", "NoÉquipeB"), by.y = c("NoPartie", "NoÉquipe"), all.x = TRUE) %>% 
   rename("PointsB" = "Points") %>%
@@ -39,29 +47,39 @@ if (nrow(RépondantsParJoueurs) > 0) {
   arrange(NoPartie)
   
 # ****SÉRIES****
-# Lecture des CSV (tables) SÉRIES
-  parties_series <- read.csv(file_path_parties_series, header = TRUE, sep = ",") %>% arrange(NoPartie)
-  RépondantsParJoueurs_series <- read.csv(file_path_RépondantsParJoueurs_series, header = TRUE, sep = ",") %>% arrange(NoPartie, NoÉquipe)
 
-# Calendrier fait ici car requis pour le classement.
-  calendrier_series <- merge(parties_series, équipes, by.x = "NoÉquipeA", by.y = "NoÉquipe")
-  calendrier_series <- merge(calendrier_series, équipes, by.x = "NoÉquipeB", by.y = "NoÉquipe", suffixes = c("A", "B"))
+#Vérification de la présence du fichier tblParties_series.csv pour vérifier si c'est le temps des séries  
+fichiersSériePrésents <- file.exists(file_path_parties_series)
 
-# Ajout des points des équipes
-  # Vérifiez si le dataframe RépondantsParJoueurs_series a au moins 1 observation. Il faut s'assurer qu'il y a eu des match de séries
-if (nrow(RépondantsParJoueurs_series) > 0) {
-  ptsParPartieÉquipe_series <- aggregate(Points ~ NoPartie + NoÉquipe, data = RépondantsParJoueurs_series, FUN = sum) %>% arrange(NoPartie, NoÉquipe)
-
-  calendrier_series <- merge(calendrier_series, ptsParPartieÉquipe_series, by.x = c("NoPartie", "NoÉquipeA"), by.y = c("NoPartie", "NoÉquipe"), all.x = TRUE) %>% rename("PointsA" = "Points")
-  calendrier_series <- merge(calendrier_series, ptsParPartieÉquipe_series, by.x = c("NoPartie", "NoÉquipeB"), by.y = c("NoPartie", "NoÉquipe"), all.x = TRUE) %>% 
-  rename("PointsB" = "Points") %>%
-  arrange(NoPartie)
+if (fichiersSériePrésents) {
   
-  calendrier_series <- calendrier_series[, c("NoPartie", "Date", "NomÉquipeA", "PointsA", "NoÉquipeA", "NomÉquipeB", "PointsB", "NoÉquipeB","NoÉquipeQuestionnaire", "NoQuestionnaire", "NomAnimateur", "LienReunion", "LienConsole", "LienBouton")] %>%
-  arrange(NoPartie)  
+  print("Séries!")
+  # Lecture des CSV (tables) SÉRIES
+    parties_series <- read.csv(file_path_parties_series, header = TRUE, sep = ",") %>% arrange(NoPartie)
+    RépondantsParJoueurs_series <- read.csv(file_path_RépondantsParJoueurs_series, header = TRUE, sep = ",") %>% arrange(NoPartie, NoÉquipe)
+  
+  # Calendrier fait ici car requis pour le classement.
+    calendrier_series <- merge(parties_series, équipes, by.x = "NoÉquipeA", by.y = "NoÉquipe")
+    calendrier_series <- merge(calendrier_series, équipes, by.x = "NoÉquipeB", by.y = "NoÉquipe", suffixes = c("A", "B"))
+  
+  # Ajout des points des équipes
+    # Vérifiez si le dataframe RépondantsParJoueurs_series a au moins 1 observation. Il faut s'assurer qu'il y a eu des match de séries
+  if (nrow(RépondantsParJoueurs_series) > 0) {
+    ptsParPartieÉquipe_series <- aggregate(Points ~ NoPartie + NoÉquipe, data = RépondantsParJoueurs_series, FUN = sum) %>% arrange(NoPartie, NoÉquipe)
+  
+    calendrier_series <- merge(calendrier_series, ptsParPartieÉquipe_series, by.x = c("NoPartie", "NoÉquipeA"), by.y = c("NoPartie", "NoÉquipe"), all.x = TRUE) %>% rename("PointsA" = "Points")
+    calendrier_series <- merge(calendrier_series, ptsParPartieÉquipe_series, by.x = c("NoPartie", "NoÉquipeB"), by.y = c("NoPartie", "NoÉquipe"), all.x = TRUE) %>% 
+    rename("PointsB" = "Points") %>%
+    arrange(NoPartie)
+    
+    calendrier_series <- calendrier_series[, c("NoPartie", "Date", "NomÉquipeA", "PointsA", "NoÉquipeA", "NomÉquipeB", "PointsB", "NoÉquipeB","NoÉquipeQuestionnaire", "NoQuestionnaire", "NomAnimateur", "LienReunion", "LienConsole", "LienBouton")] %>%
+    arrange(NoPartie)  
+  } else {
+    # Affichez un message d'erreur ou effectuez une autre action appropriée
+    print("Le dataframe RépondantsParJoueurs est vide. Les séries ne sont pas commencées!.")
+  }
 } else {
-  # Affichez un message d'erreur ou effectuez une autre action appropriée
-  print("Le dataframe RépondantsParJoueurs est vide. Les séries ne sont pas commencées!.")
+  print("Saison régulière")
 }
     
 ```

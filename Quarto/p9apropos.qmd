@@ -8,25 +8,6 @@ execute:
 
 Site créé avec [Quarto](https://quarto.org/) en intégrant des tableaux R avec la package reactable.
 
-*Des questions, des erreurs sur le site :* [{{< var email.support >}}](mailto:%7B%7B%3C%20var%20email.support%20%3E%7D%7D)
+*Des questions, des erreurs sur le site :* martin.sirois70\@gmail.com
 
 Création du site : octobre 2023
-
-{{< include _lectureCSV.qmd >}}
-
-```{r copie du répertoire pour la synchronisation du site web}
-# Définir les variables de répertoire
-
-# Chemin d'origine
-source_directory <- file.path(répertoire_code, "sitewebracine", "Saison22","SaisonReg")
-
-# Chemin de destination avec recul d'un niveau
-destination_directory <- file.path(dirname(répertoire_données))
-
-# Copier tout le contenu du répertoire source vers le répertoire de destination
-file.copy(from = source_directory, to = destination_directory, recursive = TRUE, overwrite = TRUE)
-
-# Afficher un message une fois la copie terminée
-cat("Le contenu a été copié avec succès de", source_directory, "vers", destination_directory, "\n")
-
-```

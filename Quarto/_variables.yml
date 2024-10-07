@@ -1,9 +1,9 @@
 # Changer en début de saison
-saison: "2023-2024"
-repertoireSaison: "Saison22"
+saison: "2024-2025"
+repertoireSaison: "Saison23"
 
 # les répertoires
-répertoire_données: "C:/GIT/gehstatcan.github.io/Saison22/DonnéesCSV" #avec les CSV
+répertoire_données: "C:/GIT/gehstatcan.github.io/Saison23/DonnéesCSV" #avec les CSV
 répertoire_code: "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/" # à envoyer sur https://github.com/gehstatcan/CreationPageWeb
 
 

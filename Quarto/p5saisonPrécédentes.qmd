@@ -7,9 +7,11 @@ execute:
 
 ## Archives des saisons précédentes
 
-Dernière mise à jour : 5 septembre 2023
+Dernière mise à jour : septembre 2024
 
 ## [Les champions du passé...](https://gehstatcan.github.io/Trophées.htm)
+
+## [Saison #22 (2023-2024)](https://gehstatcan.github.io/Saison22/SaisonReg/)
 
 ## [Saison #21 (2022-2023)](https://gehstatcan.github.io/Saison21/SaisonReg/Default.htm)
 

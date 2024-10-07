@@ -1,11 +1,10 @@
 ---
-title: ""
-format: html
-editor: visual
-execute:
-  echo: false
+title: "Accueil"
 ---
 
-<iframe src="https://gehstatcan.github.io/Saison22/Series/Geh%20-%20series%202024.htm" width="100%" height="600">
+<meta http-equiv="refresh" content="0; url=p0calendrier.html" />
+# Bienvenue sur GEH Statcan
 
-</iframe>
+Bienvenue sur le site officiel de GEH Statcan. Utilisez le menu ci-dessus pour naviguer à travers les différentes sections du site.
+
+---

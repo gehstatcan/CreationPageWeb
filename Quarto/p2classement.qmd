@@ -20,6 +20,14 @@ execute:
 
   # Ajouter la colonne "Gagnant" en fonction des conditions
   # Ajout de l'équipe Bidon pour que les colonnes restent même s'il n'y pas d'équipe avec cette condition (ex: pas de partie nulle.)
+
+
+#Vérification de la présence du fichier tblRépondantsParJoueurs.csv pour vérifier si la saison est commencée
+#fichierRépondantsParJoueursPrésent <- file.exists(file_path_RépondantsParJoueurs)
+
+if (fichierRépondantsParJoueursPrésent) {
+
+
   NomColonneAExclure1 <- c("LienConsole", "LienReunion", "LienBouton", "NomAnimateur")
   calendrierPourClassement <- calendrier[!is.na(calendrier$PointsA), !(names(calendrier) %in% NomColonneAExclure1)] #exclusion des colonnes de liens
   
@@ -161,7 +169,11 @@ execute:
   
   #TODO : Ajouter le détail des équipe avec les joueurs de cette équipe (comme dans compteurs). 
   # Ajouter aussi l'horaire du calendrier... ?
+}  else {
   
+  print("pas de parties encore")
+  cat("Pas de parties jouées cette saison")
+}
 
 ```
 

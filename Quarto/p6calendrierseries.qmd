@@ -13,6 +13,9 @@ execute:
 ```{r calendrier,echo=FALSE,warning=FALSE,message=FALSE}
 #, warning=TRUE,message=TRUE,results='hide'
 
+#En séries ?
+if (fichiersSériePrésents) {
+
  
 #Création des points par parties par joueurs
 calendrierDetailJoueurs_series <- merge(RépondantsParJoueurs_series,joueurs, by = c("NoÉquipe", "NoJoueur") )   
@@ -170,6 +173,7 @@ reactable(
     }
  )
 
+}
 ```
 
 *Vous voyez une erreur :* [{{< var email.support >}}](mailto:%7B%7B%3C%20var%20email.support%20%3E%7D%7D)

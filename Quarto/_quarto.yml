@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: "sitewebracine/saison22"
+  output-dir: "sitewebracine/saison23"
 
 website:
   title: "GEH Statcan"
@@ -12,18 +12,13 @@ website:
         text: "Classement"
       - href: p3compteurs.qmd
         text: "Compteurs"
-      - href: p7arbreseries.qmd
-        text: "Arbre des séries"
-      - href: p6calendrierseries.qmd
-        text: "Calendrier-séries"
-      - href: p8compteursseries.qmd
-        text: "Compteurs-séries"        
       - href: p4documentation.qmd
         text: "Documentation"
       - href: p5saisonPrécédentes.qmd
         text: "Saisons Précédentes"
       - href: p9apropos.qmd
         text: "À propos"
+
 format:
   html:
     theme: Lumen
