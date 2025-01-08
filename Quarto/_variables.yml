@@ -4,7 +4,7 @@ repertoireSaison: "Saison23"
 
 # les répertoires
 répertoire_données: "C:/GIT/gehstatcan.github.io/Saison23/DonnéesCSV" #avec les CSV
-répertoire_code: "F:/Users/MM/Documents/Git/CreationPageWeb/Quarto/" # à envoyer sur https://github.com/gehstatcan/CreationPageWeb
+répertoire_code: "C:/GIT/CreationPageWeb/Quarto/" # à envoyer sur https://github.com/gehstatcan/CreationPageWeb
 
 
 # Change peu fréquement

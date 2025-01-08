@@ -3,8 +3,9 @@ title: "Accueil"
 ---
 
 <meta http-equiv="refresh" content="0; url=p0calendrier.html" />
+
 # Bienvenue sur GEH Statcan
 
 Bienvenue sur le site officiel de GEH Statcan. Utilisez le menu ci-dessus pour naviguer à travers les différentes sections du site.
 
----
+------------------------------------------------------------------------

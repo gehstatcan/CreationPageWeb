@@ -25,20 +25,36 @@ execute:
     install.packages("readr")
     }
   library(readr)
+
  if (!require("dplyr", character.only = TRUE)) {
     install.packages("dplyr")
     }
   library(dplyr)
+
   if (!require("reactable", character.only = TRUE)) {
+    # If tidyr is not installed, install it
+    install.packages("reactable")
+  }
+  library(reactable)
+  
+  if (!require("tidyr", character.only = TRUE)) {
     # If tidyr is not installed, install it
     install.packages("tidyr")
   }
-  library("tidyr")
+  library(tidyr)
+
   if (!require("quarto", character.only = TRUE)) {
     # If tidyr is not installed, install it
     install.packages("quarto")
   }
   library("quarto")
+
+if (!require("rmarkdown", character.only = TRUE)) {
+    # If tidyr is not installed, install it
+    install.packages("rmarkdown")
+  }
+  library("rmarkdown")
+
 
 
   # Charger les variables depuis le fichier _variables.yml. C'est là qu'il faut configurer la saison
