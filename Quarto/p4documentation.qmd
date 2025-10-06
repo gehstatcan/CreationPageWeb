@@ -30,21 +30,21 @@ lien_Règlements <- paste(lienURLSiteGEH,"Documentation","Règlements.doc",sep="
 Passer en mode Visual les détruits...-->
 ```
 
--   [Questionnaire 1](%60r%20lien_Gabarit1%60)
+-   [Questionnaire 1](`r lien_Gabarit1`) 
 
--   [Questionnaire 2](%60r%20lien_Gabarit2%60)
+-   [Questionnaire 2](`r lien_Gabarit2`) 
 
--   [Questionnaire 3](%60r%20lien_Gabarit3%60)
+-   [Questionnaire 3](`r lien_Gabarit3`) 
 
-### [Plan du questionnaire](%60r%20lien_PlanQuestionnaire%60)
-
-Mis à jour - septembre 2025
-
-### [Guide du petit faiseur de questions](%60r%20lien_Faiseur%60)
+### [Plan du questionnaire](`r lien_PlanQuestionnaire`)
 
 Mis à jour - septembre 2025
 
-### [Règlements](%60r%20lien_Règlements%60)
+### [Guide du petit faiseur de questions](`r lien_Faiseur`)
+
+Mis à jour - septembre 2025
+
+### [Règlements](`r lien_Règlements`)
 
 Mis à jour - septembre 2025
 

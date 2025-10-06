@@ -24,7 +24,7 @@ Mise à jours des pages
 
 -   faire un "Render" du site. menu Build\|Render Web s
 
--   Copier le contenu de \\sitewebracine\\Saison22\\SaisonReg vers C:\\GIT\\gehstatcan.github.io\\Saison22\\SaisonReg
+-   Copier le contenu de \\sitewebracine\\Saison24\\SaisonReg vers C:\\GIT\\gehstatcan.github.io\\Saison22\\SaisonReg
 
 -   
 
