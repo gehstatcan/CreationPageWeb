@@ -11,9 +11,9 @@ execute:
 
 ```{r Liens,echo=FALSE,warning=FALSE,message=FALSE}
 #Création des liens vers les gabarits
-lien_Gabarit1<- paste(lien_saison,"Gabarit saison 23 - Questionnaire 1.xlsx",sep="/")
-lien_Gabarit2<- paste(lien_saison,"Gabarit saison 23 - Questionnaire 2.xlsx",sep="/")
-lien_Gabarit3<- paste(lien_saison,"Gabarit saison 23 - Questionnaire 3.xlsx",sep="/")
+lien_Gabarit1<- paste(lien_saison,"Gabarit saison 24 - Questionnaire 1.xlsx",sep="/")
+lien_Gabarit2<- paste(lien_saison,"Gabarit saison 24 - Questionnaire 2.xlsx",sep="/")
+lien_Gabarit3<- paste(lien_saison,"Gabarit saison 24 - Questionnaire 3.xlsx",sep="/")
 lien_PlanQuestionnaire<- paste(lien_saison,"Plan du questionnaire.doc",sep="/")
 lien_Faiseur <- paste(lienURLSiteGEH,"Documentation","Guide faiseur de questions.doc",sep="/")
 lien_Règlements <- paste(lienURLSiteGEH,"Documentation","Règlements.doc",sep="/")
@@ -29,23 +29,24 @@ lien_Règlements <- paste(lienURLSiteGEH,"Documentation","Règlements.doc",sep="
 <!--# Le format pour URL avec variable est : `r lien_Gabarit2`
 Passer en mode Visual les détruits...-->
 ```
--   [Questionnaire 1](`r lien_Gabarit1`) 
 
--   [Questionnaire 2](`r lien_Gabarit2`) 
+-   [Questionnaire 1](%60r%20lien_Gabarit1%60)
 
--   [Questionnaire 3](`r lien_Gabarit3`) 
+-   [Questionnaire 2](%60r%20lien_Gabarit2%60)
 
-### [Plan du questionnaire](`r lien_PlanQuestionnaire`)
+-   [Questionnaire 3](%60r%20lien_Gabarit3%60)
 
-Mis à jour - septembre 2024
+### [Plan du questionnaire](%60r%20lien_PlanQuestionnaire%60)
 
-### [Guide du petit faiseur de questions](`r lien_Faiseur`)
+Mis à jour - septembre 2025
 
-Mis à jour - septembre 2024
+### [Guide du petit faiseur de questions](%60r%20lien_Faiseur%60)
 
-### [Règlements](`r lien_Règlements`)
+Mis à jour - septembre 2025
 
-Mis à jour - septembre 2024
+### [Règlements](%60r%20lien_Règlements%60)
+
+Mis à jour - septembre 2025
 
 ### [Instructions - Joueurs](https://gehstatcan.github.io/Documentation/Instructions%20-%20Lecteurs.htm)
 

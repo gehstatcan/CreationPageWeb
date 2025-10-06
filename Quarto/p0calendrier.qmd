@@ -64,6 +64,7 @@ LienQuestionnaire <- colDef(
     select("NoPartie", "Date", "NomÉquipeA","PointsA","PointsB", "NomÉquipeB", "NomÉquipeQuestionnaire", "NomAnimateur", "LienReunion", "LienBouton","NoQuestionnaire","LienConsole")
 
 
+  
 #Tableau principal
 reactable(
   #Il faut enlver les colonnes utilisé pour les URL
@@ -73,16 +74,15 @@ reactable(
   striped = TRUE,
   pagination = FALSE,
   searchable = TRUE,
-  
- #theme : Permet plus de personnalisation de reactable. Requis pour mettre la recherche à gauche.
+
+  #theme : Permet plus de personnalisation de reactable. Requis pour mettre la recherche à gauche.
   theme = reactableTheme(
     cellPadding = "2px 5px",
     searchInputStyle = list(width = "100%")
     ),
- 
+
   #valeurs par défaut pour les colonnes
   defaultColDef = colDef(
-    # cell = function(value) format(value, nsmall = 1),
     align = "left",
     minWidth = 20,
     headerStyle = list(background = "#f7f7f8")
@@ -92,83 +92,82 @@ reactable(
     "NoPartie" = colDef(name = "#", align="center", maxWidth =  40),
     "Date" = colDef(maxWidth =  120),
     "NomÉquipeA" =  colDef(name = "Équipe A",maxWidth = 250, align="right"),
-    "NomÉquipeB" =  colDef(name = "Équipe B",maxWidth = 250, align="left"),    
+    "NomÉquipeB" =  colDef(name = "Équipe B",maxWidth = 250, align="left"),
     "PointsA" =   colDef(name = "Pts",
                          align = "left",
                          maxWidth = 50,
                          cell = function(value, index) {
-                            if (!is.na(value) && value > 0) {
-                                    # Mettre en gras si la valeur est supérieure à 0
-                                    htmltools::strong(format(value, nsmall = 2))
-                                  } else {
-                                    # Sinon, afficher la valeur normale
-                                    htmltools::em("")
-                                    #format(value, nsmall = 2)
-                                  }
-                                }
-                         ),
+                           if (!is.na(value) && value > 0) {
+                             htmltools::strong(format(value, nsmall = 2))
+                           } else {
+                             htmltools::em("")
+                           }
+                         }
+                       ),
     "PointsB" =   colDef(name = "Pts",
                          align = "center",
                          maxWidth = 50,
                          cell = function(value, index) {
-                            if (!is.na(value) && value > 0) {
-                                    # Mettre en gras si la valeur est supérieure à 0
-                                    htmltools::strong(format(value, nsmall = 2))
-                                  } else {
-                                    # Sinon, afficher la valeur normale
-                                    htmltools::em("")
-                                    #format(value, nsmall = 2)
-                                  }
-                                }
-                         #cell = function(value) htmltools::strong(format(value, nsmall = 2))
-                         ),
-    NomÉquipeQuestionnaire = LienQuestionnaire,
-    LienBouton = colDef(cell = function(value, index) {
-      # Render as a link
+                           if (!is.na(value) && value > 0) {
+                             htmltools::strong(format(value, nsmall = 2))
+                           } else {
+                             htmltools::em("")
+                           }
+                         }
+                       ),
+    "NomÉquipeQuestionnaire" = LienQuestionnaire,
+    "LienBouton" = colDef(cell = function(value, index) {
       Texte <- sprintf("%s%s",  "Lien joueur #", index)
       htmltools::tags$a(href = value, target = "_blank", Texte)
     }),
-    "LienReunion" = colDef(cell = function(value, index) {
-      # Render as a link
-      Texte <- sprintf("%s%s",  "Lien Teams #", index)
-      htmltools::tags$a(href = value, target = "_blank", Texte)
-    },name = "Lien Réunion"),
-    LienBouton = colDef(cell = function(value, index) {
-      # Render as a link
-      Texte <- sprintf("%s%s",  "Lien joueur #", index)
-      htmltools::tags$a(href = value, target = "_blank", Texte)
-    }),    
-    NomAnimateur = AnimateurConsole
+    
+    "LienReunion" = colDef(
+      name = "Lien Réunion",
+      cell = function(value, index) {
+        if (!is.na(value) && grepl("^https?://", value)) {
+          Texte <- sprintf("Lien Teams #%s", index)
+          htmltools::tags$a(href = value, target = "_blank", Texte)
+        } else {
+          htmltools::em("Lien non disponible")
+        }
+      }
+    ),
+    
+    # "LienReunion" = colDef(cell = function(value, index) {
+    #   Texte <- sprintf("%s%s",  "Lien Teams #", index)
+    #   htmltools::tags$a(href = value, target = "_blank", Texte)
+    # },name = "Lien Réunion"),
+
+    "NomAnimateur" = AnimateurConsole 
   ),
 
-  #Définition de la fonction details pour fournir un contenu personnalisé
+ # Définition de la fonction details pour fournir un contenu personnalisé
   details = function(index) {
     detailcalendrier <- calendrierDetailJoueurs[calendrierDetailJoueurs$NoPartie == calendrier$NoPartie[index], ]
     if (nrow(detailcalendrier) > 0) {
-      
+
       # Exclure la colonne "NoPartie" de la section "details"
       detailcalendrier <- detailcalendrier[, !(names(detailcalendrier) %in% "NoPartie")]
-      
+
       htmltools::div(style = "padding: 1rem",
-                     reactable(detailcalendrier, 
-                               outlined = TRUE,
-                               theme = reactableTheme(
-                                 cellPadding = "2px 5px",
-                                 ),
-                               #fullWidth = FALSE,
-                               columns = list(
-                                 # "NoPartie" = colDef(name = "#", maxWidth =  40),
-                                 "NomComplet" = colDef(name = "Joueur", maxWidth =  270),
-                                 "NomÉquipe" = colDef(name = "Équipe", maxWidth =  250),
-                                 "Points" = colDef(name = "Pts", maxWidth =  50)
-                                 )
-                               )
-                     )
+                      reactable(detailcalendrier,
+                                outlined = TRUE,
+                                theme = reactableTheme(
+                                  cellPadding = "2px 5px"
+                                  ),
+                                columns = list(
+                                  "NomComplet" = colDef(name = "Joueur", maxWidth =  270),
+                                  "NomÉquipe" = colDef(name = "Équipe", maxWidth =  250),
+                                  "Points" = colDef(name = "Pts", maxWidth =  50)
+                                  )
+                                )
+                      )
       } else {
         ""  # Si aucun détail n'est disponible, renvoyer une chaîne vide
       }
     }
  )
+
 
 ```
 
