@@ -42,13 +42,31 @@ AnimateurConsole <- colDef(
   }
 )
 
+
 #Création du lien vers le questionnaire
+  #Comme le même questionnaire est utilisé pour 2 parties, je veux le même lien poru les partie 1 et 2, 3 et 4... Ne marchera pas en séries...
 LienQuestionnaire <- colDef(
   name = "Questionnaire",
   cell = function(value, index, column_name) {
     if (!is.na(value)) {
-      url2 <- paste0(lien_questionnaire,"match",calendrier[index, "NoPartie"],".htm")
+      
+      # 1. Obtenir le numéro de la partie actuelle
+      no_partie_original <- calendrier[index, "NoPartie"]
+      
+      # 2. Déterminer le numéro à utiliser pour le lien
+      if (no_partie_original %% 2 == 0) {
+        # Si le numéro de la partie est PAIR, on soustrait 1
+        numero_pour_lien <- no_partie_original - 1
+      } else {
+        # Si le numéro est IMPAIR, on le garde tel quel
+        numero_pour_lien <- no_partie_original
+      }
+      
+      # 3. Construire l'URL avec le numéro ajusté
+      url2 <- paste0(lien_questionnaire, "match", numero_pour_lien, ".html")
+      
       htmltools::tags$a(href = url2, target = "_blank", value)
+      
     } else  {
       # Sinon, ne rien afficher
       htmltools::em("")
