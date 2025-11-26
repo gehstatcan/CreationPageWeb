@@ -81,8 +81,10 @@ LienQuestionnaire <- colDef(
   calendrier <- calendrier %>%
     select("NoPartie", "Date", "NomÉquipeA","PointsA","PointsB", "NomÉquipeB", "NomÉquipeQuestionnaire", "NomAnimateur", "LienReunion", "LienBouton","NoQuestionnaire","LienConsole")
 
+#Tri du tableau par date puis NoPartie
+  calendrier <- calendrier %>%
+  arrange(Date, NoPartie)
 
-  
 #Tableau principal
 reactable(
   #Il faut enlver les colonnes utilisé pour les URL
