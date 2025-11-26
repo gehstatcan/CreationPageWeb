@@ -136,22 +136,34 @@ reactable(
                          }
                        ),
     "NomÉquipeQuestionnaire" = LienQuestionnaire,
-    "LienBouton" = colDef(cell = function(value, index) {
-      Texte <- sprintf("%s%s",  "Lien joueur #", index)
-      htmltools::tags$a(href = value, target = "_blank", Texte)
-    }),
     
-    "LienReunion" = colDef(
-      name = "Lien Réunion",
-      cell = function(value, index) {
-        if (!is.na(value) && grepl("^https?://", value)) {
-          Texte <- sprintf("Lien Teams #%s", index)
-          htmltools::tags$a(href = value, target = "_blank", Texte)
-        } else {
-          htmltools::em("Lien non disponible")
-        }
-      }
-    ),
+    "LienBouton" = colDef(cell = function(value, index) {
+    # 1. Obtenez le numéro de partie réel (NoPartie) du tableau 'calendrier'
+    no_partie_reel <- calendrier$NoPartie[index] 
+    
+    # 2. Utilisez ce numéro pour construire le libellé (Texte)
+    Texte <- sprintf("Lien joueur #%s", no_partie_reel) 
+    
+    htmltools::tags$a(href = value, target = "_blank", Texte)
+    }),
+###    
+"LienReunion" = colDef(
+  name = "Lien Réunion",
+  cell = function(value, index) {
+    # 1. Obtenez le NoPartie de la ligne ACTUELLE (triée) dans le tableau 'calendrier'
+    no_partie_reel <- calendrier$NoPartie[index] 
+
+    if (!is.na(value) && grepl("^https?://", value)) {
+      # 2. Utilisez ce NoPartie pour construire le libellé (Texte)
+      Texte <- sprintf("Lien Teams #%s", no_partie_reel) 
+      
+      htmltools::tags$a(href = value, target = "_blank", Texte)
+    } else {
+      htmltools::em("Lien non disponible")
+    }
+  }
+),
+###
     
     # "LienReunion" = colDef(cell = function(value, index) {
     #   Texte <- sprintf("%s%s",  "Lien Teams #", index)
