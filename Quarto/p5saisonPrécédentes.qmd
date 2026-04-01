@@ -5,11 +5,15 @@ execute:
   echo: false
 ---
 
-## Archives des saisons précédentes
+## Archives des saisons précédentes (Ancien site web)
 
-Dernière mise à jour : septembre 2024
+Dernière mise à jour : mars 2026
 
 ## [Les champions du passé...](https://gehstatcan.github.io/Trophées.htm)
+
+## [Saison #24 (2025-2026) — Nouveau système](https://gehstatcan.up.railway.app/)
+
+## [Saison #24 (2025-2026) — Archive statique](https://gehstatcan.github.io/Saison24/SaisonReg/)
 
 ## [Saison #23 (2024-2025)](https://gehstatcan.github.io/Saison23/SaisonReg/)
 

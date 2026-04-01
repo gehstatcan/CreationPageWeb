@@ -2,10 +2,12 @@
 title: "Accueil"
 ---
 
-<meta http-equiv="refresh" content="0; url=p0calendrier.html" />
+<meta http-equiv="refresh" content="0; url=https://gehstatcan.up.railway.app/" />
 
-# Bienvenue sur GEH Statcan
+# GEH Statcan — Nouveau site
 
-Bienvenue sur le site officiel de GEH Statcan. Utilisez le menu ci-dessus pour naviguer à travers les différentes sections du site.
+Redirection vers le nouveau site en cours…
+
+[Cliquez ici si vous n'êtes pas redirigé automatiquement.](https://gehstatcan.up.railway.app/)
 
 ------------------------------------------------------------------------
